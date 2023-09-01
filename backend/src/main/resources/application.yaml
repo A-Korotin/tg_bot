@@ -1,0 +1,17 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/bot
+    username: bot
+    password: bot
+
+  liquibase:
+    enabled: false
+    change-log: classpath:db/changelog/main_changelog.xml
+
+telegram:
+  bot:
+    token: 6190207669:AAGH4fpAanUPKJ-pMwFyPzzL7RfDylSwqW8
+    username: suir_registration_bot

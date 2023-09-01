@@ -1,0 +1,14 @@
+version: '3.10'
+
+services:
+  app-db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: bot
+      POSTGRES_PASSWORD: bot
+      POSTGRES_DB: bot
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    volumes:
+      - "./data/db:/var/lib/postgresql/data"
