@@ -4,8 +4,11 @@ import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.itmo.bot.common.dto.AnswerDTO;
+import org.itmo.bot.common.dto.MessageDTO;
 import org.itmo.bot.dispatcher.service.Producer;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
@@ -32,15 +35,22 @@ public class TelegramBot extends TelegramLongPollingBot {
     }
 
 
-    @SneakyThrows(TelegramApiException.class)
     @Override
     public void onUpdateReceived(Update update) {
         String text = update.getMessage().getText();
         String name = update.getMessage().getChat().getUserName();
         log.info("Received message from {}: {}", name, text);
-        SendMessage sendMessage = new SendMessage(String.valueOf(update.getMessage().getChatId()), "Answer");
-        executeAsync(sendMessage);
-        producer.sendMessage(text);
+        MessageDTO dto = new MessageDTO();
+        dto.setChatId(update.getMessage().getChatId());
+        dto.setMessage(text);
+        producer.sendMessage(dto);
+    }
+
+    @KafkaListener(topics = "ANSWER", groupId = "Answer consumer")
+    public void answer(AnswerDTO dto) throws TelegramApiException{
+        SendMessage sendMessage = new SendMessage(String.valueOf(dto.getChatId()),
+                dto.getMessage());
+        execute(sendMessage);
     }
 
     @Override

@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/backend/dispatcher/dispatcher.iml" filepath="$PROJECT_DIR$/backend/dispatcher/dispatcher.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dispatcher.main.iml" filepath="$PROJECT_DIR$/.idea/modules/dispatcher.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dispatcher.test.iml" filepath="$PROJECT_DIR$/.idea/modules/dispatcher.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/tg_bot.iml" filepath="$PROJECT_DIR$/.idea/tg_bot.iml" />
     </modules>
   </component>
