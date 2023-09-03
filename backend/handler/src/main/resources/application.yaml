@@ -7,6 +7,13 @@ spring:
     username: bot
     password: bot
 
+  kafka:
+    consumer:
+      auto-offset-reset: earliest
+      bootstrap-servers: localhost:29092
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
   liquibase:
     enabled: false
     change-log: classpath:db/changelog/main_changelog.xml
