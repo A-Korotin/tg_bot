@@ -9,6 +9,11 @@ import java.util.List;
 public class OrganizerState extends State {
     @Override
     public TextResponseDTO receive(TextMessageDTO dto) {
+        if (dto.getMessage().equals("Button 1")) {
+            this.conversation.setStateName(StateName.START);
+
+        }
+
         return TextResponseDTO.builder()
                 .chatId(dto.getChatId())
                 .message("Hello from organizer state")
