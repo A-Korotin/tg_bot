@@ -3,13 +3,22 @@ package org.itmo.bot.dispatcher.config;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.itmo.bot.common.dto.TextResponseDTO;
+import org.itmo.bot.common.topics.Topic;
 import org.itmo.bot.dispatcher.service.DispatcherService;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -36,12 +45,15 @@ public class TelegramBot extends TelegramLongPollingBot {
         dispatcherService.dispatch(update);
     }
 
-//    @KafkaListener(topics = "ANSWER", groupId = "Answer consumer")
-//    public void answer(TextResponseDTO dto) throws TelegramApiException{
-//        SendMessage sendMessage = new SendMessage(String.valueOf(dto.getChatId()),
-//                dto.getMessage());
-//        execute(sendMessage);
-//    }
+    @KafkaListener(topics = Topic.TEXT_RESPONSE_TOPIC, groupId = "Answer consumer")
+    public void answer(TextResponseDTO dto) throws TelegramApiException{
+        SendMessage sendMessage =
+                new SendMessage(String.valueOf(dto.getChatId()),
+                dto.getMessage());
+        sendMessage.setReplyMarkup(new ReplyKeyboardMarkup(List.of(new KeyboardRow(
+                dto.getMeta().stream().map(KeyboardButton::new).toList()))));
+        execute(sendMessage);
+    }
 
     @Override
     @SuppressWarnings("deprecated")

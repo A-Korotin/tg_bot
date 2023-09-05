@@ -24,6 +24,10 @@ spring:
   liquibase:
     enabled: false
     change-log: classpath:db/changelog/main_changelog.xml
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
 
 telegram:
   bot:

@@ -28,8 +28,6 @@ dependencies {
 	implementation 'org.springframework.kafka:spring-kafka'
 	implementation 'org.liquibase:liquibase-core'
 	implementation project(':common')
-	implementation group: 'org.telegram', name: 'telegrambots-abilities', version: '5.3.0'
-	implementation group: 'org.telegram', name: 'telegrambots', version: '5.3.0'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'org.postgresql:postgresql'
 	annotationProcessor 'org.projectlombok:lombok'
