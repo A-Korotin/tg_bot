@@ -31,7 +31,7 @@ public class DispatcherServiceImpl implements DispatcherService {
             photoTemplate.send(Topic.PHOTO_MESSAGE_TOPIC, dto);
         }
 
-        if (update.getMessage().hasText()) {
+        else if (update.getMessage().hasText()) {
             TextMessageDTO dto = TextMessageDTO.builder()
                     .chatId(chatId)
                     .nickName(nickName)
