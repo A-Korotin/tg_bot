@@ -1,17 +1,20 @@
 package org.itmo.bot.state;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
 public class StateFactory {
     public static State getStatewithName(StateName name) {
-        return stateMap.get(name).get();
+        return stateMap.get(name);
     }
 
-    private static final Map<StateName, Supplier<State>> stateMap = new HashMap<>();
+    private static final Map<StateName, State> stateMap = new HashMap<>();
     static {
-        stateMap.put(StateName.START, StartState::new);
-        stateMap.put(StateName.ORGANIZER, OrganizerState::new);
+        stateMap.put(StateName.START, new AnnotationConfigApplicationContext().getBean(StartState.class));
+        stateMap.put(StateName.ORGANIZER, new AnnotationConfigApplicationContext().getBean(OrganizerState.class));
+        stateMap.put(StateName.REGISTRATION_NAME, new AnnotationConfigApplicationContext().getBean(NameState.class));
     }
 }
