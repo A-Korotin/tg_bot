@@ -35,4 +35,9 @@ public class Conversation {
         }
         return state.receive(dto);
     }
+
+    void changeState(StateName stateName) {
+        this.stateName = stateName;
+        this.state = StateFactory.getStatewithName(stateName);
+    }
 }

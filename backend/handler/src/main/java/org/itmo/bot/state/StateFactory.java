@@ -15,6 +15,6 @@ public class StateFactory {
     static {
         stateMap.put(StateName.START, new AnnotationConfigApplicationContext().getBean(StartState.class));
         stateMap.put(StateName.ORGANIZER, new AnnotationConfigApplicationContext().getBean(OrganizerState.class));
-        stateMap.put(StateName.REGISTRATION_NAME, new AnnotationConfigApplicationContext().getBean(NameState.class));
+        stateMap.put(StateName.REGISTRATION_NAME, new AnnotationConfigApplicationContext().getBean(StateRegistrationName.class));
     }
 }

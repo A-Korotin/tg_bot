@@ -13,14 +13,17 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @RequiredArgsConstructor
-public class NameState extends State {
+public class StateRegistrationName extends State {
 
     private final StudentService studentService;
+
     @Override
     public TextResponseDTO receive(TextMessageDTO dto) {
+
         if (studentService.existsByTGNick(dto.getNickName())) {
             try {
                 studentService.setName(dto.getMessage(), dto.getChatId());
+
             } catch (IllegalArgumentException e) {
                 this.conversation.setStateName(StateName.START);
                 return TextResponseDTO.builder()
@@ -33,6 +36,7 @@ public class NameState extends State {
         this.conversation.setStateName(StateName.REGISTRATION_SURNAME);
         return TextResponseDTO.builder()
                 .chatId(dto.getChatId())
+                .message("Пойдёт!")
                 .build();
     }
 
