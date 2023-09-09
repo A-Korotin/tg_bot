@@ -6,4 +6,5 @@ public interface ConversationService {
     Conversation loadByChatId(Long chatId, String nickName);
 
     void save(Conversation conversation);
+
 }

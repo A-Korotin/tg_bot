@@ -3,9 +3,14 @@ package org.itmo.bot.state;
 import org.itmo.bot.common.dto.PhotoMessageDTO;
 import org.itmo.bot.common.dto.TextMessageDTO;
 import org.itmo.bot.common.dto.TextResponseDTO;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class OrganizerState extends State {
     @Override
     public TextResponseDTO receive(TextMessageDTO dto) {
