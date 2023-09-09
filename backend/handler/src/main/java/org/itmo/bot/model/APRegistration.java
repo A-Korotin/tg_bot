@@ -14,7 +14,7 @@ public class APRegistration {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    private String photoId;
     @OneToOne(mappedBy = "aPRegistration")
     private Student student;
     private Boolean paid;
