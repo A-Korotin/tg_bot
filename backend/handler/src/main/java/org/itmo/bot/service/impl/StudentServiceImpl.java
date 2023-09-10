@@ -30,4 +30,31 @@ public class StudentServiceImpl implements StudentService {
 
         studentRepository.setNameByChatId(name, chatId);
     }
+
+    @Override
+    public void setSurname(String surname, Long chatId) throws IllegalArgumentException {
+        if (surname.length() > 25 || surname.length() < 2) {
+            throw new IllegalArgumentException();
+        }
+
+        studentRepository.setSurnameByChatId(surname, chatId);
+    }
+
+    @Override
+    public void setISU(Integer ISU, Long chatId) throws IllegalArgumentException {
+        if (ISU / 100000 < 1 || ISU / 100000 > 9) {
+            throw new IllegalArgumentException();
+        }
+
+        studentRepository.setISUByChatId(ISU, chatId);
+    }
+
+    @Override
+    public void setGroup(String group, Long chatId) throws IllegalArgumentException {
+        if (!Character.isLetter(group.charAt(0)) || !Character.isDigit(group.charAt(1))) {
+            throw new IllegalArgumentException();
+        }
+
+        studentRepository.setGroupByChatId(group, chatId);
+    }
 }

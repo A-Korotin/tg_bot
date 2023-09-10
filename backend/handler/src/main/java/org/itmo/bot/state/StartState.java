@@ -16,7 +16,12 @@ public class StartState extends State {
     @Override
     public TextResponseDTO receive(TextMessageDTO dto) {
         if (dto.getMessage().equals("Зарегистрироваться на посвят")) {
-            this.conversation.setStateName(StateName.REGISTRATION_NAME);
+            this.conversation.changeState(StateName.REGISTRATION_NAME);
+            return TextResponseDTO.builder()
+                    .chatId(dto.getChatId())
+                    .message("Введи своё имя:")
+                    .meta(List.of("Вернуться в начало"))
+                    .build();
         }
 
         return TextResponseDTO.builder()
