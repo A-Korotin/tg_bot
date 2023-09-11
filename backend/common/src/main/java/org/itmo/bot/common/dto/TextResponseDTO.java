@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -14,5 +15,6 @@ import java.util.List;
 public class TextResponseDTO {
     public long chatId;
     public String message;
-    public List<String> meta;
+    @Builder.Default
+    public List<String> meta = new ArrayList<>();
 }
