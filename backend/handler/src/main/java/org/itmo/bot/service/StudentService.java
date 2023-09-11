@@ -10,4 +10,6 @@ public interface StudentService {
     void save(Student student);
 
     void setName(String name, Long chatId) throws IllegalArgumentException;
+
+    Iterable<Student> findAllRegistered();
 }

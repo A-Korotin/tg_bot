@@ -30,4 +30,9 @@ public class StudentServiceImpl implements StudentService {
 
         studentRepository.setNameByChatId(name, chatId);
     }
+
+    @Override
+    public Iterable<Student> findAllRegistered() {
+        return studentRepository.findAll();
+    }
 }
