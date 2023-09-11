@@ -21,16 +21,20 @@ public class Conversation {
     @ToString.Exclude
     private State state;
 
+    @Transient
+    @ToString.Exclude
+    private StateFactory stateFactory;
+
     public TextResponseDTO receive(TextMessageDTO dto) {
         if (state == null) {
-            state = StateFactory.getStatewithName(stateName);
+            state = stateFactory.getStateWithName(stateName);
             state.setConversation(this);
         }
         return state.receive(dto);
     }
     public TextResponseDTO receive(PhotoMessageDTO dto) {
         if (state == null) {
-            state = StateFactory.getStatewithName(stateName);
+            state = stateFactory.getStateWithName(stateName);
             state.setConversation(this);
         }
         return state.receive(dto);
