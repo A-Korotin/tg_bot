@@ -16,4 +16,6 @@ public interface StudentService {
     void setISU(Integer ISU, Long chatId) throws IllegalArgumentException;
 
     void setGroup(String group, Long chatId) throws IllegalArgumentException;
+
+    Iterable<Student> findAllRegistered();
 }

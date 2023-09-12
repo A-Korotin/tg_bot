@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class StudentServiceImpl implements StudentService {
 
-    private StudentRepository studentRepository;
+    private final StudentRepository studentRepository;
 
     @Override
     public boolean existsByTGNick(String tgNick) {
@@ -56,5 +56,10 @@ public class StudentServiceImpl implements StudentService {
         }
 
         studentRepository.setGroupByChatId(group, chatId);
+    }
+
+    @Override
+    public Iterable<Student> findAllRegistered() {
+        return studentRepository.findAll();
     }
 }
