@@ -5,7 +5,9 @@ import org.itmo.bot.common.dto.PhotoMessageDTO;
 import org.itmo.bot.common.dto.TextMessageDTO;
 import org.itmo.bot.common.dto.TextResponseDTO;
 import org.itmo.bot.exception.command.NoSuchCommandException;
-import org.itmo.bot.service.AdminCommandService;
+import org.itmo.bot.service.CommandService;
+import org.itmo.bot.service.impl.AdminCommandServiceImpl;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -17,7 +19,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrganizerState extends State {
 
-    private final AdminCommandService commandService;
+    @Qualifier("adminCommandServiceImpl")
+    private final CommandService commandService;
 
     @Override
     public TextResponseDTO receive(TextMessageDTO dto) {

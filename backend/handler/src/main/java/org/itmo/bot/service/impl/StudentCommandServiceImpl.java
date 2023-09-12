@@ -13,11 +13,12 @@ import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
-public class AdminCommandServiceImpl implements CommandService {
+public class StudentCommandServiceImpl implements CommandService {
 
     private final ApplicationContext applicationContext;
 
     private static final Map<String, Class<? extends Command>> map = new HashMap<>();
+
     static {
         map.put("Получить всех", FindAllRegisteredStudentsCommand.class);
     }
@@ -31,6 +32,4 @@ public class AdminCommandServiceImpl implements CommandService {
         Command c = (Command) applicationContext.getBean(clazz);
         c.execute(chatId);
     }
-
-
 }

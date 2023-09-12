@@ -23,7 +23,7 @@ public class FindAllRegisteredStudentsCommand implements Command {
 
         List<String> representations = StreamSupport
                 .stream(students.spliterator(), false)
-                .map(Student::represent)
+                .map(Student::toString)
                 .toList();
 
         StringBuilder builder = new StringBuilder();

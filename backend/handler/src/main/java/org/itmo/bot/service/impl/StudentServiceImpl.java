@@ -13,8 +13,8 @@ public class StudentServiceImpl implements StudentService {
     private final StudentRepository studentRepository;
 
     @Override
-    public boolean existsByTGNick(String tgNick) {
-        return studentRepository.findByTgNick(tgNick).isPresent();
+    public boolean existsByChatId(Long chatId) {
+        return studentRepository.findByConversationChatId(chatId).isPresent();
     }
 
     @Override
@@ -56,6 +56,11 @@ public class StudentServiceImpl implements StudentService {
         }
 
         studentRepository.setGroupByChatId(group, chatId);
+    }
+
+    @Override
+    public void confirm(Long chatId) {
+        studentRepository.confirm(chatId);
     }
 
     @Override

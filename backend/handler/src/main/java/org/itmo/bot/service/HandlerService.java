@@ -27,7 +27,7 @@ public class HandlerService {
         Conversation conversation = conversationService.loadByChatId(dto.getChatId(), dto.getNickName());
         conversation.setStateFactory(factory);
         TextResponseDTO responseDTO = conversation.receive(dto);
-        conversationService.save(conversation);
+        conversationService.update(conversation.getStateName(), conversation.getChatId());
         template.send(Topic.TEXT_RESPONSE_TOPIC, responseDTO);
     }
 }

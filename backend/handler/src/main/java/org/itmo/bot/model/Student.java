@@ -23,15 +23,18 @@ public class Student {
 
     private Integer ISU;
 
-    private String group;
+    private String itmoGroup;
 
     private String tgNick;
+
+    @Column(columnDefinition = "boolean default false")
+    private Boolean isConfirmed;
 
     @OneToOne
     @JoinColumn(name="chat_id")
     private Conversation conversation;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "apRegistration_id", referencedColumnName = "id")
-    private APRegistration apRegistration;
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "aPRegistration_id", referencedColumnName = "id")
+//    private APRegistration apRegistration;
 }

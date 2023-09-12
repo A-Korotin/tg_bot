@@ -40,7 +40,7 @@ public class Conversation {
         return state.receive(dto);
     }
 
-    void changeState(StateName stateName) {
+    public void changeState(StateName stateName) {
         this.stateName = stateName;
         this.state = stateFactory.getStateWithName(stateName);
     }

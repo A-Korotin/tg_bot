@@ -1,6 +1,7 @@
 package org.itmo.bot.state;
 
 import lombok.Getter;
+import org.itmo.bot.state.registration.*;
 
 @Getter
 public enum StateName {
@@ -9,7 +10,8 @@ public enum StateName {
     REGISTRATION_NAME(StateRegistrationName.class),
     REGISTRATION_SURNAME(StateRegistrationSurname.class),
     REGISTRATION_ISU(StateRegistrationISU.class),
-    REGISTRATION_GROUP(StateRegistrationGroup.class);
+    REGISTRATION_GROUP(StateRegistrationGroup.class),
+    REGISTRATION_CONFIRMATION(StateRegistrationConfirmation.class);
 
     StateName(Class<? extends State> stateClass) {
         this.clazz = stateClass;
