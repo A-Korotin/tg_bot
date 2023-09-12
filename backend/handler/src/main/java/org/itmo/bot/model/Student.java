@@ -32,6 +32,6 @@ public class Student {
     private Conversation conversation;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "aPRegistration_id", referencedColumnName = "id")
+    @JoinColumn(name = "apRegistration_id", referencedColumnName = "id")
     private APRegistration apRegistration;
 }

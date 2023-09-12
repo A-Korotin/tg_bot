@@ -42,6 +42,6 @@ public class Conversation {
 
     void changeState(StateName stateName) {
         this.stateName = stateName;
-        this.state = StateFactory.getStatewithName(stateName);
+        this.state = stateFactory.getStateWithName(stateName);
     }
 }

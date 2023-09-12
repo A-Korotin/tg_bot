@@ -6,8 +6,10 @@ import lombok.Getter;
 public enum StateName {
     ORGANIZER(OrganizerState.class),
     START(StartState.class),
-    REGISTRATION_NAME(NameState.class),
-    REGISTRATION_SURNAME(null); // todo set actual classes
+    REGISTRATION_NAME(StateRegistrationName.class),
+    REGISTRATION_SURNAME(StateRegistrationSurname.class),
+    REGISTRATION_ISU(StateRegistrationISU.class),
+    REGISTRATION_GROUP(StateRegistrationGroup.class);
 
     StateName(Class<? extends State> stateClass) {
         this.clazz = stateClass;

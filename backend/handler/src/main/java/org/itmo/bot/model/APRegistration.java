@@ -9,13 +9,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="aPRegistration")
+@Table(name="apRegistration")
 public class APRegistration {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String photoId;
-    @OneToOne(mappedBy = "aPRegistration")
+    @OneToOne(mappedBy = "apRegistration")
     private Student student;
     private Boolean paid;
 }
