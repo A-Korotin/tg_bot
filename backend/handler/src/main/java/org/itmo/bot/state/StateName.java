@@ -1,6 +1,8 @@
 package org.itmo.bot.state;
 
 import lombok.Getter;
+import org.itmo.bot.state.afterparty.StateAfterPartyPhotoOfPaid;
+import org.itmo.bot.state.afterparty.StateAfterPartyQuestion;
 import org.itmo.bot.state.registration.*;
 
 @Getter
@@ -11,7 +13,9 @@ public enum StateName {
     REGISTRATION_SURNAME(StateRegistrationSurname.class),
     REGISTRATION_ISU(StateRegistrationISU.class),
     REGISTRATION_GROUP(StateRegistrationGroup.class),
-    REGISTRATION_CONFIRMATION(StateRegistrationConfirmation.class);
+    REGISTRATION_CONFIRMATION(StateRegistrationConfirmation.class),
+    AFTER_PARTY_REGISTRATION_QUESTION(StateAfterPartyQuestion.class),
+    AFTER_PARTY_REGISTRATION_PHOTO_OF_PAID(StateAfterPartyPhotoOfPaid.class);
 
     StateName(Class<? extends State> stateClass) {
         this.clazz = stateClass;
