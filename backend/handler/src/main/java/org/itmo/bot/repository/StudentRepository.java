@@ -1,5 +1,6 @@
 package org.itmo.bot.repository;
 
+import org.itmo.bot.model.AfterPartyRegistration;
 import org.itmo.bot.model.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -12,6 +13,7 @@ import java.util.Optional;
 
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Long> {
+
 
     @Transactional
     @Query("select st from Student st where st.conversation.chatId = :chatId")
@@ -41,4 +43,10 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     @Transactional
     @Query("update Student st set st.isConfirmed = true where st.conversation.chatId = ?1")
     void confirm(Long chatId);
+
+    @Modifying
+    @Transactional
+    @Query("update Student st set st.afterPartyRegistration.id = ?1 where st.id = ?2")
+    void setAfterPartyRegistrationByStudentId(Long afterPartyRegistrationId, Long studentId);
+
 }
