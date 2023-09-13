@@ -34,7 +34,6 @@ public class Student {
     @JoinColumn(name="chat_id")
     private Conversation conversation;
 
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "aPRegistration_id", referencedColumnName = "id")
-//    private APRegistration apRegistration;
+    @OneToOne(cascade = CascadeType.ALL)
+    private AfterPartyRegistration afterPartyRegistration;
 }
