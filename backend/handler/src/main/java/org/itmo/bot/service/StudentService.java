@@ -1,6 +1,7 @@
 package org.itmo.bot.service;
 
 
+import org.itmo.bot.model.AfterPartyRegistration;
 import org.itmo.bot.model.Student;
 
 public interface StudentService {
@@ -19,5 +20,9 @@ public interface StudentService {
 
     void confirm(Long chatId);
 
+    void setAfterPartyRegistration(AfterPartyRegistration afterPartyRegistration, Long chatId);
+
     Iterable<Student> findAllRegistered();
+
+    Student getStudentByChatId(Long chatId);
 }
