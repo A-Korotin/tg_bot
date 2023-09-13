@@ -3,6 +3,7 @@ package org.itmo.bot.dispatcher.config;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.itmo.bot.common.dto.PhotoResponseDTO;
 import org.itmo.bot.common.dto.TextResponseDTO;
 import org.itmo.bot.common.topics.Topic;
 import org.itmo.bot.dispatcher.service.DispatcherService;
@@ -54,6 +55,18 @@ public class TelegramBot extends TelegramLongPollingBot {
                 dto.getMeta().stream().map(KeyboardButton::new).toList()))));
         execute(sendMessage);
     }
+
+    @KafkaListener(topics = Topic.PHOTO_RESPONSE_TOPIC, groupId = "Answer consumer")
+    public void answerPhoto(TextResponseDTO dto) throws TelegramApiException{
+        SendMessage sendMessage =
+                new SendMessage(String.valueOf(dto.getChatId()),
+                        dto.getMessage());
+        sendMessage.setReplyMarkup(new ReplyKeyboardMarkup(List.of(new KeyboardRow(
+                dto.getMeta().stream().map(KeyboardButton::new).toList()))));
+        execute(sendMessage);
+    }
+
+
 
     @Override
     @SuppressWarnings("deprecated")
