@@ -1,6 +1,5 @@
 package org.itmo.bot.repository;
 
-import org.itmo.bot.model.AfterPartyRegistration;
 import org.itmo.bot.model.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
