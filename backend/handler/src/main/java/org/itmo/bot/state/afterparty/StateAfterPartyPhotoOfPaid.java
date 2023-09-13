@@ -61,11 +61,14 @@ public class StateAfterPartyPhotoOfPaid extends State {
 
                 afterPartyRegistrationService.save(afterPartyRegistration);
 
+                this.conversation.setStateName(StateName.START);
+
                 return TextResponseDTO.builder()
                         .chatId(dto.getChatId())
                         .message("Отлично! Наша команда проверит пополнение и мы тебе сообщим статус заявки")
                         .meta(List.of("Вернуться в начало"))
                         .build();
+
             }
 
 
