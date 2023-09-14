@@ -6,8 +6,6 @@ import org.itmo.bot.common.dto.TextMessageDTO;
 import org.itmo.bot.common.dto.TextResponseDTO;
 import org.itmo.bot.model.AfterPartyRegistration;
 import org.itmo.bot.model.Student;
-import org.itmo.bot.service.AfterPartyRegistrationService;
-import org.itmo.bot.service.StudentService;
 import org.itmo.bot.service.impl.StudentServiceImpl;
 import org.itmo.bot.state.State;
 import org.itmo.bot.state.StateName;
