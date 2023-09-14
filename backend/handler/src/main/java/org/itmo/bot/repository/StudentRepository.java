@@ -14,7 +14,6 @@ import java.util.Optional;
 public interface StudentRepository extends JpaRepository<Student, Long> {
 
 
-    @Transactional
     @Query("select st from Student st where st.conversation.chatId = :chatId")
     Optional<Student> findByConversationChatId(@Param("chatId") Long chatId);
 
