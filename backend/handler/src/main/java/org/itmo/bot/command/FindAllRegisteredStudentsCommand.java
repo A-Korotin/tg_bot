@@ -13,7 +13,7 @@ import java.util.stream.StreamSupport;
 
 @Component
 @RequiredArgsConstructor
-public class FindAllRegisteredStudentsCommand implements Command {
+public class FindAllRegisteredStudentsCommand extends Command {
     private final StudentService studentService;
     private final KafkaTemplate<String, TextResponseDTO> template;
 
