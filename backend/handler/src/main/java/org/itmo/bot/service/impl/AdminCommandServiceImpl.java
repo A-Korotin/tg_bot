@@ -26,7 +26,7 @@ public class AdminCommandServiceImpl implements CommandService {
 
     @Override
     public void execute(String command, long chatId) {
-        String[] input = command.split(" ", 1);
+        String[] input = command.split(" ", 2);
         Class<?> clazz = map.get(input[0]);
         if (clazz == null) {
             throw new NoSuchCommandException("Команда '%s' не найдена".formatted(input[0]));
