@@ -3,6 +3,7 @@ package org.itmo.bot.command;
 import lombok.RequiredArgsConstructor;
 import org.itmo.bot.common.dto.TextResponseDTO;
 import org.itmo.bot.common.topics.Topic;
+import org.itmo.bot.model.Representable;
 import org.itmo.bot.model.Student;
 import org.itmo.bot.service.StudentService;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -23,7 +24,7 @@ public class FindAllRegisteredStudentsCommand extends Command {
 
         List<String> representations = StreamSupport
                 .stream(students.spliterator(), false)
-                .map(Student::toString)
+                .map(Representable::represent)
                 .toList();
 
         StringBuilder builder = new StringBuilder();

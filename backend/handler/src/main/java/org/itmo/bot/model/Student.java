@@ -11,7 +11,7 @@ import org.itmo.bot.state.Conversation;
 @NoArgsConstructor
 @Entity
 @Table(name="student")
-public class Student {
+public class Student implements Representable {
 
     @Id
     @GeneratedValue
@@ -36,4 +36,9 @@ public class Student {
 
     @OneToOne(cascade = CascadeType.ALL)
     private AfterPartyRegistration afterPartyRegistration;
+
+    @Override
+    public String represent() {
+        return "%d %s %s %s %s".formatted(ISU, name, surname, itmoGroup, tgNick);
+    }
 }
