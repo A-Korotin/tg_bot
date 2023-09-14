@@ -13,6 +13,8 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
+import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
@@ -54,16 +56,15 @@ public class TelegramBot extends TelegramLongPollingBot {
         sendMessage.setReplyMarkup(new ReplyKeyboardMarkup(List.of(new KeyboardRow(
                 dto.getMeta().stream().map(KeyboardButton::new).toList()))));
         execute(sendMessage);
+
     }
 
     @KafkaListener(topics = Topic.PHOTO_RESPONSE_TOPIC, groupId = "Answer consumer")
-    public void answerPhoto(TextResponseDTO dto) throws TelegramApiException{
-        SendMessage sendMessage =
-                new SendMessage(String.valueOf(dto.getChatId()),
-                        dto.getMessage());
-        sendMessage.setReplyMarkup(new ReplyKeyboardMarkup(List.of(new KeyboardRow(
-                dto.getMeta().stream().map(KeyboardButton::new).toList()))));
-        execute(sendMessage);
+    public void answerPhoto(PhotoResponseDTO dto) throws TelegramApiException{
+        SendPhoto sendPhoto =
+                new SendPhoto();
+        sendPhoto.setChatId(dto.getChatId());
+        execute(sendPhoto);
     }
 
 
