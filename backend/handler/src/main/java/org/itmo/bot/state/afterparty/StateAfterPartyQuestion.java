@@ -56,7 +56,7 @@ public class StateAfterPartyQuestion extends State {
 
                 return TextResponseDTO.builder()
                         .chatId(dto.getChatId())
-                        .message("За афтерпати нужно платить \uD83D\uDE0B\uD83D\uDE0B \nЦена: 500 руб.\n\nНомер: +7123456678\nДэмдин!\n\nПосле оплаты пришли фотографию (или pdf???)")
+                        .message("За афтерпати нужно платить \uD83D\uDE0B\uD83D\uDE0B \nЦена: 500 руб.\n\nНомер: +7123456678\nДэмдин!\n\nПосле оплаты пришли фотографию")
                         .meta(List.of("Вернуться в начало"))
                         .build();
             }
