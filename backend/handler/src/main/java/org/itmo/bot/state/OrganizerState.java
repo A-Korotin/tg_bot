@@ -44,6 +44,11 @@ public class OrganizerState extends State {
                     .message(e.getMessage())
                     .meta(List.of(AVAILABLE_COMMANDS))
                     .build();
+        } catch (RuntimeException e) {
+            return TextResponseDTO.builder()
+                    .chatId(dto.getChatId())
+                    .message("При выполнении команды произошла незапланированная ситуация. Обратись к администратору")
+                    .build();
         }
 
         return TextResponseDTO.builder()
