@@ -15,6 +15,7 @@ import java.util.List;
 
 
 @Component
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @RequiredArgsConstructor
 public class StateRegistrationSurname extends State {
 
@@ -57,6 +58,10 @@ public class StateRegistrationSurname extends State {
 
     @Override
     public TextResponseDTO receive(PhotoMessageDTO dto) {
-        return null;
+        return TextResponseDTO.builder()
+                .chatId(dto.getChatId())
+                .message("Нормик, но введи свою фамилию уже!")
+                .meta(List.of("Вернуться в начало"))
+                .build();
     }
 }
