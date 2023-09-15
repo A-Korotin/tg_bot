@@ -1,5 +1,6 @@
 package org.itmo.bot.state;
 
+import lombok.RequiredArgsConstructor;
 import org.itmo.bot.common.dto.PhotoMessageDTO;
 import org.itmo.bot.common.dto.TextMessageDTO;
 import org.itmo.bot.common.dto.TextResponseDTO;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @Component
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+@RequiredArgsConstructor
 public class OrganizerState extends State {
 
     private final CommandService commandService;
@@ -23,11 +25,6 @@ public class OrganizerState extends State {
             "ПолучитьВсех",
             "НаписатьВсем"
     };
-
-    @Autowired
-    public OrganizerState(@Qualifier("adminCommandServiceImpl") CommandService commandService) {
-        this.commandService = commandService;
-    }
 
     @Override
     public TextResponseDTO receive(TextMessageDTO dto) {
