@@ -1,20 +1,24 @@
 package org.itmo.bot.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.itmo.bot.model.AfterPartyRegistration;
 import org.itmo.bot.model.Student;
 import org.itmo.bot.repository.StudentRepository;
+import org.itmo.bot.service.AfterPartyRegistrationService;
 import org.itmo.bot.service.StudentService;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class StudentServiceImpl implements StudentService {
 
-    private StudentRepository studentRepository;
+    private final StudentRepository studentRepository;
 
     @Override
-    public boolean existsByTGNick(String tgNick) {
-        return studentRepository.findByTgNick(tgNick).isPresent();
+    public boolean existsByChatId(Long chatId) {
+        return studentRepository.findByConversationChatId(chatId).isPresent();
     }
 
     @Override
@@ -56,5 +60,37 @@ public class StudentServiceImpl implements StudentService {
         }
 
         studentRepository.setGroupByChatId(group, chatId);
+    }
+
+    @Override
+    public void confirm(Long chatId) {
+        studentRepository.confirm(chatId);
+    }
+
+
+
+    @Override
+    public Iterable<Student> findAllRegistered() {
+        return studentRepository.findAll();
+    }
+
+    @Override
+    public Student getStudentByChatId(Long chatId) {
+
+        Optional<Student> student = studentRepository.findByConversationChatId(chatId);
+
+        return student.orElse(null);
+
+    }
+
+    @Override
+    public void setAfterPartyRegistration(AfterPartyRegistration afterPartyRegistration, Long chatID) {
+
+        Student student = studentRepository.findByConversationChatId(chatID).orElse(null);
+
+        if (student != null) {
+            studentRepository.setAfterPartyRegistrationByStudentId(afterPartyRegistration.getId(), student.getId());
+        }
+
     }
 }

@@ -21,23 +21,27 @@ public class Conversation {
     @ToString.Exclude
     private State state;
 
+    @Transient
+    @ToString.Exclude
+    private StateFactory stateFactory;
+
     public TextResponseDTO receive(TextMessageDTO dto) {
         if (state == null) {
-            state = StateFactory.getStatewithName(stateName);
+            state = stateFactory.getStateWithName(stateName);
             state.setConversation(this);
         }
         return state.receive(dto);
     }
     public TextResponseDTO receive(PhotoMessageDTO dto) {
         if (state == null) {
-            state = StateFactory.getStatewithName(stateName);
+            state = stateFactory.getStateWithName(stateName);
             state.setConversation(this);
         }
         return state.receive(dto);
     }
 
-    void changeState(StateName stateName) {
+    public void changeState(StateName stateName) {
         this.stateName = stateName;
-        this.state = StateFactory.getStatewithName(stateName);
+        this.state = stateFactory.getStateWithName(stateName);
     }
 }

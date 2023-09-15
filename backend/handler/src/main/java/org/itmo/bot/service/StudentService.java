@@ -1,11 +1,12 @@
 package org.itmo.bot.service;
 
 
+import org.itmo.bot.model.AfterPartyRegistration;
 import org.itmo.bot.model.Student;
 
 public interface StudentService {
 
-    boolean existsByTGNick(String tgNick);
+    boolean existsByChatId(Long chatId);
 
     void save(Student student);
 
@@ -16,4 +17,12 @@ public interface StudentService {
     void setISU(Integer ISU, Long chatId) throws IllegalArgumentException;
 
     void setGroup(String group, Long chatId) throws IllegalArgumentException;
+
+    void confirm(Long chatId);
+
+    void setAfterPartyRegistration(AfterPartyRegistration afterPartyRegistration, Long chatId);
+
+    Iterable<Student> findAllRegistered();
+
+    Student getStudentByChatId(Long chatId);
 }

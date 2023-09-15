@@ -41,4 +41,9 @@ public class ConversationServiceImpl implements ConversationService {
     public void save(Conversation conversation) {
         conversationRepository.save(conversation);
     }
+
+    @Override
+    public void update(StateName stateName, Long chatId) {
+        conversationRepository.updateConversationByChatId(stateName, chatId);
+    }
 }

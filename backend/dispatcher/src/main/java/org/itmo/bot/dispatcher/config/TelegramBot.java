@@ -3,6 +3,7 @@ package org.itmo.bot.dispatcher.config;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.itmo.bot.common.dto.PhotoResponseDTO;
 import org.itmo.bot.common.dto.TextResponseDTO;
 import org.itmo.bot.common.topics.Topic;
 import org.itmo.bot.dispatcher.service.DispatcherService;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
+import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
@@ -53,7 +56,19 @@ public class TelegramBot extends TelegramLongPollingBot {
         sendMessage.setReplyMarkup(new ReplyKeyboardMarkup(List.of(new KeyboardRow(
                 dto.getMeta().stream().map(KeyboardButton::new).toList()))));
         execute(sendMessage);
+
     }
+
+    @KafkaListener(topics = Topic.PHOTO_RESPONSE_TOPIC, groupId = "Answer consumer")
+    public void answerPhoto(PhotoResponseDTO dto) throws TelegramApiException{
+        SendPhoto sendPhoto =
+                new SendPhoto();
+        sendPhoto.setChatId(dto.getChatId());
+        sendPhoto.setPhoto(new InputFile(dto.getPhotoId()));
+        execute(sendPhoto);
+    }
+
+
 
     @Override
     @SuppressWarnings("deprecated")

@@ -1,10 +1,12 @@
-package org.itmo.bot.state;
+package org.itmo.bot.state.registration;
 
 import lombok.RequiredArgsConstructor;
 import org.itmo.bot.common.dto.PhotoMessageDTO;
 import org.itmo.bot.common.dto.TextMessageDTO;
 import org.itmo.bot.common.dto.TextResponseDTO;
 import org.itmo.bot.service.StudentService;
+import org.itmo.bot.state.State;
+import org.itmo.bot.state.StateName;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -13,9 +15,8 @@ import java.util.List;
 
 
 @Component
-@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @RequiredArgsConstructor
-public class StateRegistrationSurname extends State {
+public class StateRegistrationGroup extends State {
 
     private final StudentService studentService;
 
@@ -26,25 +27,24 @@ public class StateRegistrationSurname extends State {
             return this.conversation.getState().receive(dto);
         }
 
-        if (studentService.existsByTGNick(dto.getNickName())) {
+        if (studentService.existsByChatId(dto.getChatId())) {
             try {
-                studentService.setSurname(dto.getMessage(), dto.getChatId());
-                this.conversation.changeState(StateName.REGISTRATION_ISU);
+                studentService.setGroup(dto.getMessage(), dto.getChatId());
+                this.conversation.changeState(StateName.REGISTRATION_CONFIRMATION);
                 return TextResponseDTO.builder()
                         .chatId(dto.getChatId())
-                        .message("Пойдёт! Введи свой номер ИСУ:")
-                        .meta(List.of("Вернуться в начало"))
+                        .message("Супер! А теперь нажми, что ты согласен, что мы возьмём твои персональные данные, но ты не беспокойся, нам только для посвята)))")
+                        .meta(List.of("Вернуться в начало", "СОГЛАСЕН"))
                         .build();
 
             } catch (IllegalArgumentException e) {
                 return TextResponseDTO.builder()
                         .chatId(dto.getChatId())
-                        .message("Странная у тебя фамилия! Попробуй ещё")
+                        .message("Странная у тебя группа! Попробуй ещё")
                         .meta(List.of("Вернуться в начало"))
                         .build();
             }
         }
-
 
         this.conversation.changeState(StateName.REGISTRATION_NAME);
         return TextResponseDTO.builder()
