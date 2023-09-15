@@ -16,6 +16,7 @@ import java.util.List;
 
 
 @Component
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @RequiredArgsConstructor
 public class StateRegistrationName extends State {
 
@@ -49,6 +50,7 @@ public class StateRegistrationName extends State {
 
         Student student = new Student();
         student.setConversation(this.conversation);
+        student.setTgNick(dto.getNickName());
         studentService.save(student);
         studentService.setName(dto.getMessage(), dto.getChatId());
 
@@ -62,6 +64,10 @@ public class StateRegistrationName extends State {
 
     @Override
     public TextResponseDTO receive(PhotoMessageDTO dto) {
-        return null;
+        return TextResponseDTO.builder()
+                .chatId(dto.getChatId())
+                .message("Nonono!!! Классная фотка, но введи своё имя!")
+                .meta(List.of("Вернуться в начало"))
+                .build();
     }
 }
