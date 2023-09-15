@@ -3,6 +3,7 @@ package org.itmo.bot.dispatcher.config;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.itmo.bot.common.dto.FileResponseDTO;
 import org.itmo.bot.common.dto.PhotoResponseDTO;
 import org.itmo.bot.common.dto.TextResponseDTO;
 import org.itmo.bot.common.topics.Topic;
@@ -12,6 +13,7 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
+import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.InputFile;
@@ -21,6 +23,10 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.Keyboard
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.List;
 
 @Component
@@ -66,6 +72,17 @@ public class TelegramBot extends TelegramLongPollingBot {
         sendPhoto.setChatId(dto.getChatId());
         sendPhoto.setPhoto(new InputFile(dto.getPhotoId()));
         execute(sendPhoto);
+    }
+
+    @KafkaListener(topics = Topic.FILE_RESPONSE_TOPIC, groupId = "Answer consumer")
+    public void answerFile(FileResponseDTO dto) throws TelegramApiException {
+        SendDocument sendDocument = new SendDocument();
+        sendDocument.setChatId(dto.getChatId());
+        InputStream inputStream = new ByteArrayInputStream(dto.getContent());
+        sendDocument.setDocument(new InputFile(inputStream, dto.getFileName()));
+        sendDocument.setCaption(dto.getCaption());
+
+        execute(sendDocument);
     }
 
 
