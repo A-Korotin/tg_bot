@@ -11,7 +11,7 @@ import org.itmo.bot.state.Conversation;
 @NoArgsConstructor
 @Entity
 @Table(name="student")
-public class Student implements Representable {
+public class Student implements CSVRepresentable {
 
     @Id
     @GeneratedValue
@@ -38,7 +38,8 @@ public class Student implements Representable {
     private AfterPartyRegistration afterPartyRegistration;
 
     @Override
-    public String represent() {
-        return "%d %s %s %s %s".formatted(ISU, name, surname, itmoGroup, tgNick);
+    public String representAsCSVRecord() {
+        // Имя,Фамилия,Группа,Номер ИСУ,Ник телеграмм
+        return "%s;%s;%s;%d;%s".formatted(name, surname, itmoGroup, ISU, tgNick);
     }
 }
