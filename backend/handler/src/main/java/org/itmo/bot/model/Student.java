@@ -14,7 +14,7 @@ import org.itmo.bot.state.Conversation;
 public class Student implements CSVRepresentable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
@@ -27,8 +27,7 @@ public class Student implements CSVRepresentable {
 
     private String tgNick;
 
-    @Column(columnDefinition = "boolean default false")
-    private Boolean isConfirmed;
+    private Boolean isConfirmed = false;
 
     @OneToOne
     @JoinColumn(name="chat_id")
