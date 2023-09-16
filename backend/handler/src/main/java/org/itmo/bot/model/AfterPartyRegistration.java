@@ -22,5 +22,7 @@ public class AfterPartyRegistration {
     @JoinColumn
     private Student student;
 
+    private String phone;
+
     private Boolean paid;
 }
