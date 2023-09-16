@@ -1,9 +1,7 @@
 package org.itmo.bot.state;
 
 import lombok.Getter;
-import org.itmo.bot.state.afterparty.StateAfterPartyPhone;
-import org.itmo.bot.state.afterparty.StateAfterPartyPhotoOfPaid;
-import org.itmo.bot.state.afterparty.StateAfterPartyQuestion;
+import org.itmo.bot.state.afterparty.*;
 import org.itmo.bot.state.registration.*;
 
 @Getter
