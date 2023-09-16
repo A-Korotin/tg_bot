@@ -70,6 +70,7 @@ public class StateAfterPartyPhone extends State {
     @Override
     public TextResponseDTO receive(PhotoMessageDTO dto) {
         return TextResponseDTO.builder()
+                .chatId(dto.getChatId())
                 .message("Фото не поддерживается :)")
                 .build();
     }
