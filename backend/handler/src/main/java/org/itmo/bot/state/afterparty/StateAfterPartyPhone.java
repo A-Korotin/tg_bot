@@ -69,7 +69,9 @@ public class StateAfterPartyPhone extends State {
 
     @Override
     public TextResponseDTO receive(PhotoMessageDTO dto) {
-        return null;
+        return TextResponseDTO.builder()
+                .message("Фото не поддерживается :)")
+                .build();
     }
 }
 
