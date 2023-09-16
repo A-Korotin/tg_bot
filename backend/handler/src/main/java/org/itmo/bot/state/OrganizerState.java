@@ -31,6 +31,13 @@ public class OrganizerState extends State {
 
     @Override
     public TextResponseDTO receive(TextMessageDTO dto) {
+        if (dto.getMessage().equals("/start")) {
+            return TextResponseDTO.builder()
+                    .chatId(dto.getChatId())
+                    .message("Привет, организатор.")
+                    .meta(List.of(AVAILABLE_COMMANDS))
+                    .build();
+        }
 
         try {
             commandService.execute(dto.getMessage(), dto.getChatId());
