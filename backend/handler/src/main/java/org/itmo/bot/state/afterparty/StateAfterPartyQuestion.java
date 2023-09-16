@@ -37,27 +37,8 @@ public class StateAfterPartyQuestion extends State {
 
         if (dto.getMessage().equals("Пойду \uD83D\uDE0E")) {
 
-            Student student = studentService.getStudentByChatId(dto.chatId);
-
-            if (student != null) {
-                AfterPartyRegistration afterPartyRegistration = new AfterPartyRegistration();
-
-                afterPartyRegistration.setId(dto.getChatId());
-                afterPartyRegistration.setPaid(false);
-
-                student.setAfterPartyRegistration(afterPartyRegistration);
-
-                studentService.save(student);
-
-                this.conversation.setStateName(StateName.AFTER_PARTY_REGISTRATION_PHOTO_OF_PAID);
-
-
-                return TextResponseDTO.builder()
-                        .chatId(dto.getChatId())
-                        .message("За афтерпати нужно платить \uD83D\uDE0B\uD83D\uDE0B \nЦена: 500 руб.\n\nНомер: +7123456678\nДэмдин!\n\nПосле оплаты пришли фотографию")
-                        .meta(List.of("Вернуться в начало"))
-                        .build();
-            }
+            this.conversation.changeState(StateName.AFTER_PARTY_REGISTRATION_PHONE);
+            return this.conversation.getState().receive(dto);
 
         }
 
