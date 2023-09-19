@@ -8,6 +8,7 @@ import org.itmo.bot.service.AfterPartyRegistrationService;
 import org.itmo.bot.service.StudentService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -68,7 +69,6 @@ public class StudentServiceImpl implements StudentService {
     }
 
 
-
     @Override
     public Iterable<Student> findAllRegistered() {
         return studentRepository.findAll();
@@ -84,6 +84,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public List<Long> getAllChatIds() {
+        return studentRepository.findAll().stream().map(Student::getId).toList();
+    }
+
+    @Override
     public void setAfterPartyRegistration(AfterPartyRegistration afterPartyRegistration, Long chatID) {
 
         Student student = studentRepository.findByConversationChatId(chatID).orElse(null);
@@ -93,4 +98,6 @@ public class StudentServiceImpl implements StudentService {
         }
 
     }
+
+
 }

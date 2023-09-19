@@ -4,6 +4,8 @@ package org.itmo.bot.service;
 import org.itmo.bot.model.AfterPartyRegistration;
 import org.itmo.bot.model.Student;
 
+import java.util.List;
+
 public interface StudentService {
 
     boolean existsByChatId(Long chatId);
@@ -25,4 +27,6 @@ public interface StudentService {
     Iterable<Student> findAllRegistered();
 
     Student getStudentByChatId(Long chatId);
+
+    List<Long> getAllChatIds();
 }
