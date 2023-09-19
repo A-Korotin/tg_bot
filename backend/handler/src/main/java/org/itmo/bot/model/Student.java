@@ -38,7 +38,8 @@ public class Student implements CSVRepresentable {
 
     @Override
     public String representAsCSVRecord() {
-        // Имя,Фамилия,Группа,Номер ИСУ,Ник телеграмм
-        return "%s;%s;%s;%d;%s".formatted(name, surname, itmoGroup, ISU, tgNick);
+        // Id,Имя,Фамилия,Группа,Номер ИСУ,Ник телеграмм,Инфа по АП
+        return "%d;%s;%s;%s;%d;%s;%s".formatted(id,name, surname, itmoGroup, ISU, tgNick,
+                afterPartyRegistration == null ? "Нет": afterPartyRegistration.representAsCSVRecord());
     }
 }
