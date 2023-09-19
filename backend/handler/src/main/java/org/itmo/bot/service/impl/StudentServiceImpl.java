@@ -93,4 +93,13 @@ public class StudentServiceImpl implements StudentService {
         }
 
     }
+
+    @Override
+    public boolean deleteById(Long studentId) {
+        if (!studentRepository.existsById(studentId)) {
+            return false;
+        }
+        studentRepository.deleteById(studentId);
+        return true;
+    }
 }

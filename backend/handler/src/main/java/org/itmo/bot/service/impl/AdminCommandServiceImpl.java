@@ -1,10 +1,7 @@
 package org.itmo.bot.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.itmo.bot.command.BroadcastCommand;
-import org.itmo.bot.command.Command;
-import org.itmo.bot.command.FindAllRegisteredStudentsCommand;
-import org.itmo.bot.command.RegisterPersonCommand;
+import org.itmo.bot.command.*;
 import org.itmo.bot.exception.command.NoSuchCommandException;
 import org.itmo.bot.service.CommandService;
 import org.springframework.context.ApplicationContext;
@@ -24,6 +21,7 @@ public class AdminCommandServiceImpl implements CommandService {
         map.put("ПолучитьВсех", FindAllRegisteredStudentsCommand.class);
         map.put("НаписатьВсем", BroadcastCommand.class);
         map.put("Зарегистрировать", RegisterPersonCommand.class);
+        map.put("Удалить", DeleteByIdCommand.class);
     }
 
     @Override

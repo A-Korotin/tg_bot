@@ -25,4 +25,6 @@ public interface StudentService {
     Iterable<Student> findAllRegistered();
 
     Student getStudentByChatId(Long chatId);
+
+    boolean deleteById(Long studentId);
 }

@@ -24,7 +24,8 @@ public class OrganizerState extends State {
     private static final String[] AVAILABLE_COMMANDS = {
             "ПолучитьВсех",
             "НаписатьВсем",
-            "Зарегистрировать"
+            "Зарегистрировать",
+            "Удалить"
     };
 
     @Override
