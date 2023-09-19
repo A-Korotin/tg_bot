@@ -17,6 +17,9 @@ public class StudentServiceImpl implements StudentService {
 
     private final StudentRepository studentRepository;
 
+    private final String GROUP_RE = "R31\\d\\d";
+    private final String NAME_RE = "^[а-яА-Яa-zA-Z]+$";
+
     @Override
     public boolean existsByChatId(Long chatId) {
         return studentRepository.findByConversationChatId(chatId).isPresent();
@@ -29,7 +32,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void setName(String name, Long chatId) throws IllegalArgumentException {
-        if (name.length() > 25 || name.length() < 2) {
+        if (name.length() > 25 || name.length() < 2 || !name.trim().matches(NAME_RE)) {
             throw new IllegalArgumentException();
         }
 
@@ -38,7 +41,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void setSurname(String surname, Long chatId) throws IllegalArgumentException {
-        if (surname.length() > 25 || surname.length() < 2) {
+        if (surname.length() > 25 || surname.length() < 2 || !surname.trim().matches(NAME_RE)) {
             throw new IllegalArgumentException();
         }
 
@@ -56,7 +59,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void setGroup(String group, Long chatId) throws IllegalArgumentException {
-        if (!Character.isLetter(group.charAt(0)) || !Character.isDigit(group.charAt(1))) {
+        if (!group.trim().matches(GROUP_RE)) {
             throw new IllegalArgumentException();
         }
 
