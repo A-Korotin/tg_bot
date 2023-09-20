@@ -59,10 +59,9 @@ public class StateAfterPartyPhone extends State {
 
         }
 
-
         return TextResponseDTO.builder()
                 .chatId(dto.getChatId())
-                .message("Введи свой номер телефона\n\nПримеры:\n+77777777777\n87777777777\n77777777777")
+                .message("Некорректный номер телефона! Пожалуйста, введи номер, как показано ниже: \n\n+77777777777\n87777777777\n77777777777")
                 .meta(List.of("Вернуться в начало"))
                 .build();
     }
