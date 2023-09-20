@@ -37,7 +37,8 @@ public class StateRegistrationConfirmation extends State {
                         .build();
             }
             studentService.confirm(dto.getChatId());
-            this.conversation.changeState(StateName.START); //TODO state REGISTRATION_PASSED
+            this.conversation.changeState(StateName.START);
+
             return TextResponseDTO.builder()
                     .chatId(dto.getChatId())
                     .message("Умничка! Можешь кайфовать! Ты зареган!")
