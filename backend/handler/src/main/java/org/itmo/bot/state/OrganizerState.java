@@ -25,7 +25,8 @@ public class OrganizerState extends State {
             "ПолучитьВсех",
             "НаписатьВсем",
             "Зарегистрировать",
-            "Удалить"
+            "Удалить",
+            "РазделитьНаКоманды"
     };
 
     @Override
@@ -47,6 +48,7 @@ public class OrganizerState extends State {
                     .meta(List.of(AVAILABLE_COMMANDS))
                     .build();
         } catch (RuntimeException e) {
+            e.printStackTrace();
             return TextResponseDTO.builder()
                     .chatId(dto.getChatId())
                     .message("При выполнении команды произошла незапланированная ситуация. Обратись к администратору")

@@ -4,12 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.itmo.bot.model.AfterPartyRegistration;
 import org.itmo.bot.model.Student;
 import org.itmo.bot.repository.StudentRepository;
-import org.itmo.bot.service.AfterPartyRegistrationService;
 import org.itmo.bot.service.StudentService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -88,7 +88,8 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<Long> getAllChatIds() {
-        return studentRepository.findAll().stream().map(Student::getId).toList();
+        return studentRepository.findAll().stream().filter(s -> s.getConversation() != null)
+                .map(s -> s.getConversation().getChatId()).collect(Collectors.toList());
     }
 
     @Override
