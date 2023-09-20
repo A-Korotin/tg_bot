@@ -51,7 +51,7 @@ public class StartState extends State {
 
         if (dto.getMessage().equals("Я иду на афтерпати\uD83D\uDE08")) {
             if (student != null) {
-                if (student.getIsConfirmed()) {
+                if (student.getIsConfirmed() && student.getAfterPartyRegistration() == null) {
 
                     this.conversation.changeState(StateName.AFTER_PARTY_REGISTRATION_QUESTION);
                     return this.conversation.getState().receive(dto);
@@ -66,7 +66,7 @@ public class StartState extends State {
 
 
         if (student != null) {
-            if (student.getIsConfirmed()) {
+            if (student.getIsConfirmed() && student.getAfterPartyRegistration() == null) {
                 metaForMessage.add("Я иду на афтерпати\uD83D\uDE08");
             }
         }
