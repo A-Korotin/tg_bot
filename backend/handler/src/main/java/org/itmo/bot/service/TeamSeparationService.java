@@ -20,7 +20,7 @@ public class TeamSeparationService {
 
     private final String[] EMOJIES = new String[]{"\uD83E\uDD70", "\uD83D\uDC4C", "\uD83D\uDE2D", "\uD83D\uDC8B", "\uD83D\uDE48", "\uD83D\uDE31", "\uD83D\uDE36\u200D\uD83C\uDF2B\uFE0F", "\uD83E\uDD2F", "\uD83D\uDC38", "\uD83D\uDC23", "\uD83C\uDF4C", "\uD83C\uDF46", "\uD83C\uDF54", "❌", "\uD83D\uDEBE", "\uD83C\uDDF7\uD83C\uDDFA", "\uD83D\uDCCE", "\uD83D\uDCBB", "\uD83D\uDEA8", "\uD83C\uDFAF", "\uD83D\uDE0E", "\uD83C\uDF40", "\uD83D\uDC8E", "\uD83C\uDF69", "\uD83C\uDF6C", "\uD83E\uDD75"};
 
-    private List<List<Long>> createTeams() {
+    public List<List<Long>> createTeams() {
         List<Long> students = studentService.getAllChatIds();
         List<List<Long>> teams = new ArrayList<>();
 
@@ -44,7 +44,7 @@ public class TeamSeparationService {
         return teams;
     }
 
-    public void sendColors(List<List<Long>> teams) {
+    public void sendEmojies(List<List<Long>> teams) {
         for (int i = 0; i < teams.size(); i++) {
             for (Long id : teams.get(i)) {
                 TextResponseDTO textResponseDTO = TextResponseDTO.builder()
