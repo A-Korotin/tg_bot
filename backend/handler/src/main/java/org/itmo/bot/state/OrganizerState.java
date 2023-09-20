@@ -1,5 +1,6 @@
 package org.itmo.bot.state;
 
+import lombok.RequiredArgsConstructor;
 import org.itmo.bot.common.dto.PhotoMessageDTO;
 import org.itmo.bot.common.dto.TextMessageDTO;
 import org.itmo.bot.common.dto.TextResponseDTO;
@@ -15,19 +16,17 @@ import java.util.List;
 
 @Component
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+@RequiredArgsConstructor
 public class OrganizerState extends State {
 
     private final CommandService commandService;
 
     private static final String[] AVAILABLE_COMMANDS = {
             "ПолучитьВсех",
-            "НаписатьВсем"
+            "НаписатьВсем",
+            "Зарегистрировать",
+            "Удалить"
     };
-
-    @Autowired
-    public OrganizerState(@Qualifier("adminCommandServiceImpl") CommandService commandService) {
-        this.commandService = commandService;
-    }
 
     @Override
     public TextResponseDTO receive(TextMessageDTO dto) {
@@ -46,6 +45,11 @@ public class OrganizerState extends State {
                     .chatId(dto.getChatId())
                     .message(e.getMessage())
                     .meta(List.of(AVAILABLE_COMMANDS))
+                    .build();
+        } catch (RuntimeException e) {
+            return TextResponseDTO.builder()
+                    .chatId(dto.getChatId())
+                    .message("При выполнении команды произошла незапланированная ситуация. Обратись к администратору")
                     .build();
         }
 
