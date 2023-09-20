@@ -27,7 +27,7 @@ public class StartState extends State {
 
         Student student = studentService.getStudentByChatId(dto.getChatId());
 
-        if (dto.getMessage().equals("Зарегистрироваться на посвят")) {
+        if (dto.getMessage().equals("Зарегистрироваться на посвят\uD83D\uDE0E")) {
 
             if (student == null || !student.getIsConfirmed()) {
                 this.conversation.changeState(StateName.REGISTRATION_NAME);
@@ -51,7 +51,7 @@ public class StartState extends State {
 
         if (dto.getMessage().equals("Я иду на афтерпати\uD83D\uDE08")) {
             if (student != null) {
-                if (student.getIsConfirmed()) {
+                if (student.getIsConfirmed() && student.getAfterPartyRegistration() == null) {
 
                     this.conversation.changeState(StateName.AFTER_PARTY_REGISTRATION_QUESTION);
                     return this.conversation.getState().receive(dto);
@@ -62,18 +62,18 @@ public class StartState extends State {
 
 
         List<String> metaForMessage = new ArrayList<>();
-        metaForMessage.add("Зарегистрироваться на посвят");
+        metaForMessage.add("Зарегистрироваться на посвят\uD83D\uDE0E");
 
 
         if (student != null) {
-            if (student.getIsConfirmed()) {
+            if (student.getIsConfirmed() && student.getAfterPartyRegistration() == null) {
                 metaForMessage.add("Я иду на афтерпати\uD83D\uDE08");
             }
         }
 
         return TextResponseDTO.builder()
                 .chatId(dto.getChatId())
-                .message("Привет! Я бот для посвящения в первокурсники факультета СУИР")
+                .message("Привет! \nЯ бот для посвящения в первокурсники факультета СУИР\uD83D\uDE03")
                 .meta(metaForMessage)
                 .build();
     }

@@ -33,11 +33,12 @@ public class StateRegistrationConfirmation extends State {
                 return TextResponseDTO.builder()
                         .chatId(dto.getChatId())
                         .message("Ну доверься... Что ты сразу??...")
-                        .meta(List.of("Вернуться в начало"))
+                        .meta(List.of("Вернуться в начало", "СОГЛАСЕН"))
                         .build();
             }
             studentService.confirm(dto.getChatId());
-            this.conversation.changeState(StateName.START); //TODO state REGISTRATION_PASSED
+            this.conversation.changeState(StateName.START);
+
             return TextResponseDTO.builder()
                     .chatId(dto.getChatId())
                     .message("Умничка! Можешь кайфовать! Ты зареган!")
