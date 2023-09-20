@@ -1,6 +1,7 @@
 package org.itmo.bot.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.itmo.bot.command.BroadcastCommand;
 import org.itmo.bot.command.Command;
 import org.itmo.bot.command.FindAllRegisteredStudentsCommand;
 import org.itmo.bot.exception.command.NoSuchCommandException;
@@ -19,16 +20,19 @@ public class AdminCommandServiceImpl implements CommandService {
 
     private static final Map<String, Class<? extends Command>> map = new HashMap<>();
     static {
-        map.put("Получить всех", FindAllRegisteredStudentsCommand.class);
+        map.put("ПолучитьВсех", FindAllRegisteredStudentsCommand.class);
+        map.put("НаписатьВсем", BroadcastCommand.class);
     }
 
     @Override
     public void execute(String command, long chatId) {
-        Class<?> clazz = map.get(command);
+        String[] input = command.split(" ", 2);
+        Class<?> clazz = map.get(input[0]);
         if (clazz == null) {
-            throw new NoSuchCommandException(command);
+            throw new NoSuchCommandException("Команда '%s' не найдена".formatted(input[0]));
         }
         Command c = (Command) applicationContext.getBean(clazz);
+        c.setArgs(input);
         c.execute(chatId);
     }
 

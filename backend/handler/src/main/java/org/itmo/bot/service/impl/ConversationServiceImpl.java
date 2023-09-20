@@ -4,8 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.itmo.bot.repository.ConversationRepository;
 import org.itmo.bot.service.ConversationService;
 import org.itmo.bot.state.Conversation;
-import org.itmo.bot.state.State;
-import org.itmo.bot.state.StateFactory;
 import org.itmo.bot.state.StateName;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +19,7 @@ public class ConversationServiceImpl implements ConversationService {
     private final Set<String> organizerNames = new HashSet<>();
     {
         organizerNames.add("Korotin_A");
+        organizerNames.add("damdinm");
     }
 
     @Override

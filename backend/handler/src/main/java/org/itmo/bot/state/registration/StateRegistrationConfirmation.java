@@ -7,12 +7,15 @@ import org.itmo.bot.common.dto.TextResponseDTO;
 import org.itmo.bot.service.StudentService;
 import org.itmo.bot.state.State;
 import org.itmo.bot.state.StateName;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 
 @Component
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @RequiredArgsConstructor
 public class StateRegistrationConfirmation extends State {
 
@@ -52,6 +55,10 @@ public class StateRegistrationConfirmation extends State {
 
     @Override
     public TextResponseDTO receive(PhotoMessageDTO dto) {
-        return null;
+        return TextResponseDTO.builder()
+                .chatId(dto.getChatId())
+                .message("ну не надо фоток...")
+                .meta(List.of("Вернуться в начало", "СОГЛАСЕН"))
+                .build();
     }
 }

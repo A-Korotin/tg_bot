@@ -29,7 +29,7 @@ public class StartState extends State {
 
         if (dto.getMessage().equals("Зарегистрироваться на посвят")) {
 
-            if (student == null) {
+            if (student == null || !student.getIsConfirmed()) {
                 this.conversation.changeState(StateName.REGISTRATION_NAME);
                 return TextResponseDTO.builder()
                         .chatId(dto.getChatId())

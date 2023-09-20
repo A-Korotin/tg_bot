@@ -11,10 +11,10 @@ import org.itmo.bot.state.Conversation;
 @NoArgsConstructor
 @Entity
 @Table(name="student")
-public class Student {
+public class Student implements CSVRepresentable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
@@ -27,8 +27,7 @@ public class Student {
 
     private String tgNick;
 
-    @Column(columnDefinition = "boolean default false")
-    private Boolean isConfirmed;
+    private Boolean isConfirmed = false;
 
     @OneToOne
     @JoinColumn(name="chat_id")
@@ -36,4 +35,10 @@ public class Student {
 
     @OneToOne(cascade = CascadeType.ALL)
     private AfterPartyRegistration afterPartyRegistration;
+
+    @Override
+    public String representAsCSVRecord() {
+        // Имя,Фамилия,Группа,Номер ИСУ,Ник телеграмм
+        return "%s;%s;%s;%d;%s".formatted(name, surname, itmoGroup, ISU, tgNick);
+    }
 }

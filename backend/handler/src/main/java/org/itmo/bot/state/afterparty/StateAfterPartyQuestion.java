@@ -38,11 +38,13 @@ public class StateAfterPartyQuestion extends State {
         if (dto.getMessage().equals("Пойду \uD83D\uDE0E")) {
 
             this.conversation.changeState(StateName.AFTER_PARTY_REGISTRATION_PHONE);
+
             return TextResponseDTO.builder()
                     .chatId(dto.getChatId())
                     .message("Введи свой номер телефона\n\nПримеры:\n+77777777777\n87777777777\n77777777777")
                     .meta(List.of("Вернуться в начало"))
                     .build();
+
 
         }
 
