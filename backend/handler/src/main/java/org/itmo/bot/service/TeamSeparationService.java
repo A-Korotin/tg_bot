@@ -36,9 +36,10 @@ public class TeamSeparationService {
         }
 
         for (int i = 0; i < dif; i++) {
-            teams.get(i).add(studentChatIds.get(studentChatIds.size() - studentChatIds.size() % 26 - 1 + dif));
+            teams.get(i).add(studentChatIds.get(26 * teamCap + i));
         }
 
+        System.out.println(teams);
         return teams;
     }
 

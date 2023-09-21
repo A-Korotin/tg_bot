@@ -52,7 +52,17 @@ public class StateRegistrationName extends State {
         student.setConversation(this.conversation);
         student.setTgNick(dto.getNickName());
         studentService.save(student);
-        studentService.setName(dto.getMessage(), dto.getChatId());
+
+        try {
+            studentService.setName(dto.getMessage(), dto.getChatId());
+        } catch (IllegalArgumentException e) {
+            return TextResponseDTO.builder()
+                    .chatId(dto.getChatId())
+                    .message("Странное у тебя имя! Попробуй ещё")
+                    .meta(List.of("Вернуться в начало"))
+                    .build();
+        }
+
 
         this.conversation.changeState(StateName.REGISTRATION_SURNAME);
         return TextResponseDTO.builder()
