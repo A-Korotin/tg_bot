@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -88,12 +87,6 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Long> getAllChatIds() {
-        return studentRepository.findAll().stream().filter(s -> s.getConversation() != null)
-                .map(s -> s.getConversation().getChatId()).collect(Collectors.toList());
-    }
-
-    @Override
     public void setAfterPartyRegistration(AfterPartyRegistration afterPartyRegistration, Long chatID) {
 
         Student student = studentRepository.findByConversationChatId(chatID).orElse(null);
@@ -119,5 +112,10 @@ public class StudentServiceImpl implements StudentService {
         }
         studentRepository.deleteById(studentId);
         return true;
+    }
+
+    @Override
+    public List<Long> getAllPresentChatIds() {
+        return studentRepository.findAllPresentChatIds();
     }
 }

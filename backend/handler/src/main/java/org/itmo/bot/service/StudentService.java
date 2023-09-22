@@ -31,7 +31,7 @@ public interface StudentService {
     Student getStudentByChatId(Long chatId);
 
     boolean deleteById(Long studentId);
-  
-    List<Long> getAllChatIds();
+
+    List<Long> getAllPresentChatIds();
 
 }
