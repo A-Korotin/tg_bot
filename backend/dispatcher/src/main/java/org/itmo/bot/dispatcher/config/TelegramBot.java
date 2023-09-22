@@ -59,8 +59,10 @@ public class TelegramBot extends TelegramLongPollingBot {
         SendMessage sendMessage =
                 new SendMessage(String.valueOf(dto.getChatId()),
                 dto.getMessage());
-        sendMessage.setReplyMarkup(new ReplyKeyboardMarkup(List.of(new KeyboardRow(
-                dto.getMeta().stream().map(KeyboardButton::new).toList()))));
+        ReplyKeyboardMarkup markup = new ReplyKeyboardMarkup(List.of(new KeyboardRow(
+                dto.getMeta().stream().map(KeyboardButton::new).toList())));
+        markup.setResizeKeyboard(true);
+        sendMessage.setReplyMarkup(markup);
         execute(sendMessage);
 
     }
