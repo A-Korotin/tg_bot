@@ -19,14 +19,12 @@ import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -59,8 +57,16 @@ public class TelegramBot extends TelegramLongPollingBot {
         SendMessage sendMessage =
                 new SendMessage(String.valueOf(dto.getChatId()),
                 dto.getMessage());
-        ReplyKeyboardMarkup markup = new ReplyKeyboardMarkup(List.of(new KeyboardRow(
-                dto.getMeta().stream().map(KeyboardButton::new).toList())));
+        List<KeyboardRow> rows = new ArrayList<>();
+        KeyboardRow row = new KeyboardRow();
+        row.addAll(dto.getMeta().subList(0, Math.min(dto.getMeta().size(), 4)));
+        rows.add(row);
+        if (dto.getMeta().size() > 4) {
+            row = new KeyboardRow();
+            row.addAll(dto.getMeta().subList(4, dto.getMeta().size()));
+            rows.add(row);
+        }
+        ReplyKeyboardMarkup markup = new ReplyKeyboardMarkup(rows);
         markup.setResizeKeyboard(true);
         sendMessage.setReplyMarkup(markup);
         execute(sendMessage);
