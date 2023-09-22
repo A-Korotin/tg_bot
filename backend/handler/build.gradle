@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'org.itmo'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1'
 
 java {
 	sourceCompatibility = '17'
@@ -19,6 +19,9 @@ configurations {
 
 repositories {
 	mavenCentral()
+	flatDir {
+		dirs 'libs'
+	}
 }
 
 dependencies {
@@ -27,7 +30,7 @@ dependencies {
 	implementation 'org.liquibase:liquibase-core'
 	implementation 'org.springframework.boot:spring-boot-starter-json'
 
-	implementation project(':common')
+	implementation fileTree(dir: 'libs', include: ['*.jar'])
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'org.postgresql:postgresql'
 	annotationProcessor 'org.projectlombok:lombok'
