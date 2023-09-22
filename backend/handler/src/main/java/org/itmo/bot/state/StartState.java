@@ -80,6 +80,10 @@ public class StartState extends State {
 
     @Override
     public TextResponseDTO receive(PhotoMessageDTO dto) {
-        return null;
+        return TextResponseDTO.builder()
+                .chatId(dto.getChatId())
+                .message("Привет! \nЯ бот для посвящения в первокурсники факультета СУИР\uD83D\uDE03")
+                .meta(List.of("Зарегистрироваться на посвят\uD83D\uDE0E"))
+                .build();
     }
 }
