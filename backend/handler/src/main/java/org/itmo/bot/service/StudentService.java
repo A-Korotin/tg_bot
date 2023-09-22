@@ -22,6 +22,8 @@ public interface StudentService {
 
     void confirm(Long chatId);
 
+    void setPresent(Long id);
+
     void setAfterPartyRegistration(AfterPartyRegistration afterPartyRegistration, Long chatId);
 
     Iterable<Student> findAllRegistered();

@@ -1,6 +1,7 @@
 package org.itmo.bot.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.itmo.bot.exception.command.InvalidArgumentsException;
 import org.itmo.bot.model.AfterPartyRegistration;
 import org.itmo.bot.model.Student;
 import org.itmo.bot.repository.StudentRepository;
@@ -101,6 +102,14 @@ public class StudentServiceImpl implements StudentService {
             studentRepository.setAfterPartyRegistrationByStudentId(afterPartyRegistration.getId(), student.getId());
         }
 
+    }
+
+    @Override
+    public void setPresent(Long id) {
+        if (!studentRepository.existsById(id)) {
+            throw new InvalidArgumentsException("Запись с ID '%d' не найдена".formatted(id));
+        }
+        studentRepository.setPresent(id);
     }
 
     @Override

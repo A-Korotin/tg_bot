@@ -47,4 +47,9 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     @Query("update Student st set st.afterPartyRegistration.id = ?1 where st.id = ?2")
     void setAfterPartyRegistrationByStudentId(Long afterPartyRegistrationId, Long studentId);
 
+    @Modifying
+    @Transactional
+    @Query("update Student st set st.isPresent = true where st.id = ?1")
+    void setPresent(Long id);
+
 }
