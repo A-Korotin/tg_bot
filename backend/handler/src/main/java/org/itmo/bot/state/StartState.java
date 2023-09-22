@@ -5,6 +5,7 @@ import org.itmo.bot.common.dto.PhotoMessageDTO;
 import org.itmo.bot.common.dto.TextMessageDTO;
 import org.itmo.bot.common.dto.TextResponseDTO;
 import org.itmo.bot.model.Student;
+import org.itmo.bot.service.AfterPartyConfigurationService;
 import org.itmo.bot.service.StudentService;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
@@ -21,6 +22,7 @@ import java.util.Optional;
 public class StartState extends State {
 
     private final StudentService studentService;
+    private final AfterPartyConfigurationService afterPartyConfigurationService;
 
     @Override
     public TextResponseDTO receive(TextMessageDTO dto) {
@@ -49,7 +51,8 @@ public class StartState extends State {
         }
 
 
-        if (dto.getMessage().equals("Я иду на афтерпати\uD83D\uDE08")) {
+        if (dto.getMessage().equals("Хочу на афтерпати\uD83D\uDE08") &&
+                afterPartyConfigurationService.registrationEnabled()) {
             if (student != null) {
                 if (student.getIsConfirmed() && student.getAfterPartyRegistration() == null) {
 
@@ -65,9 +68,9 @@ public class StartState extends State {
         metaForMessage.add("Зарегистрироваться на посвят\uD83D\uDE0E");
 
 
-        if (student != null) {
+        if (student != null && afterPartyConfigurationService.registrationEnabled()) {
             if (student.getIsConfirmed() && student.getAfterPartyRegistration() == null) {
-                metaForMessage.add("Я иду на афтерпати\uD83D\uDE08");
+                metaForMessage.add("Хочу на афтерпати\uD83D\uDE08");
             }
         }
 
