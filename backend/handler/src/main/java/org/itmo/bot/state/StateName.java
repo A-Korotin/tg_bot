@@ -13,7 +13,6 @@ public enum StateName {
     REGISTRATION_ISU(StateRegistrationISU.class),
     REGISTRATION_GROUP(StateRegistrationGroup.class),
     REGISTRATION_CONFIRMATION(StateRegistrationConfirmation.class),
-    AFTER_PARTY_REGISTRATION_QUESTION(StateAfterPartyQuestion.class),
     AFTER_PARTY_REGISTRATION_PHOTO_OF_PAID(StateAfterPartyPhotoOfPaid.class),
     AFTER_PARTY_REGISTRATION_PHONE(StateAfterPartyPhone.class);
 
