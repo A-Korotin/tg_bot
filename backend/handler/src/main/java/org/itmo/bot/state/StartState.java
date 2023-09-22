@@ -51,7 +51,7 @@ public class StartState extends State {
         }
 
 
-        if (dto.getMessage().equals("Хочу на афтерпати\uD83D\uDE08") &&
+        if (dto.getMessage().equals("Я иду на афтерпати\uD83D\uDE08") &&
                 afterPartyConfigurationService.registrationEnabled()) {
             if (student != null) {
                 if (student.getIsConfirmed() && student.getAfterPartyRegistration() == null) {
@@ -70,7 +70,7 @@ public class StartState extends State {
 
         if (student != null && afterPartyConfigurationService.registrationEnabled()) {
             if (student.getIsConfirmed() && student.getAfterPartyRegistration() == null) {
-                metaForMessage.add("Хочу на афтерпати\uD83D\uDE08");
+                metaForMessage.add("Я иду на афтерпати\uD83D\uDE08");
             }
         }
 
