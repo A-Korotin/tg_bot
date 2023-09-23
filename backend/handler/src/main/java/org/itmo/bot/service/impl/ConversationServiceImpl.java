@@ -20,7 +20,7 @@ public class ConversationServiceImpl implements ConversationService {
     {
         organizerNames.add("Korotin_A");
         organizerNames.add("damdinm");
-        organizerNames.add("bustuga4");
+        //organizerNames.add("bustuga4");
     }
 
     @Override

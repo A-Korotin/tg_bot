@@ -13,7 +13,7 @@ public class SplitTeamsCommand extends Command{
 
     @Override
     public void execute(long chatId) {
-        var chatIds = studentService.getAllChatIds();
+        var chatIds = studentService.getAllPresentChatIds();
         var teams = teamSeparationService.createTeams(chatIds);
         teamSeparationService.sendEmojies(teams);
     }

@@ -35,14 +35,14 @@ public class StateRegistrationName extends State {
                 this.conversation.changeState(StateName.REGISTRATION_SURNAME);
                 return TextResponseDTO.builder()
                         .chatId(dto.getChatId())
-                        .message("Пойдёт! Введи свою фамилию:")
+                        .message("Супер! Введи свою фамилию:")
                         .meta(List.of("Вернуться в начало"))
                         .build();
 
             } catch (IllegalArgumentException e) {
                 return TextResponseDTO.builder()
                         .chatId(dto.getChatId())
-                        .message("Странное у тебя имя! Попробуй ещё")
+                        .message("Что-то не то:( Попробуй ещё раз!")
                         .meta(List.of("Вернуться в начало"))
                         .build();
             }
@@ -58,7 +58,7 @@ public class StateRegistrationName extends State {
         } catch (IllegalArgumentException e) {
             return TextResponseDTO.builder()
                     .chatId(dto.getChatId())
-                    .message("Странное у тебя имя! Попробуй ещё")
+                    .message("Что-то не то:( Попробуй ещё раз!")
                     .meta(List.of("Вернуться в начало"))
                     .build();
         }
@@ -67,7 +67,7 @@ public class StateRegistrationName extends State {
         this.conversation.changeState(StateName.REGISTRATION_SURNAME);
         return TextResponseDTO.builder()
                 .chatId(dto.getChatId())
-                .message("Пойдёт! Введи свою фамилию:")
+                .message("Супер! Введи свою фамилию:")
                 .meta(List.of("Вернуться в начало"))
                 .build();
     }

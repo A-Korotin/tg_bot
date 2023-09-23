@@ -5,6 +5,7 @@ import org.itmo.bot.common.dto.PhotoMessageDTO;
 import org.itmo.bot.common.dto.TextMessageDTO;
 import org.itmo.bot.common.dto.TextResponseDTO;
 import org.itmo.bot.model.Student;
+import org.itmo.bot.service.AfterPartyConfigurationService;
 import org.itmo.bot.service.StudentService;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
@@ -21,13 +22,14 @@ import java.util.Optional;
 public class StartState extends State {
 
     private final StudentService studentService;
+    private final AfterPartyConfigurationService afterPartyConfigurationService;
 
     @Override
     public TextResponseDTO receive(TextMessageDTO dto) {
 
         Student student = studentService.getStudentByChatId(dto.getChatId());
 
-        if (dto.getMessage().equals("Зарегистрироваться на посвят\uD83D\uDE0E")) {
+        if (dto.getMessage().equals("Зарегистрироваться на посвят \uD83D\uDE0B")) {
 
             if (student == null || !student.getIsConfirmed()) {
                 this.conversation.changeState(StateName.REGISTRATION_NAME);
@@ -49,7 +51,8 @@ public class StartState extends State {
         }
 
 
-        if (dto.getMessage().equals("Я иду на афтерпати\uD83D\uDE08")) {
+        if (dto.getMessage().equals("Я иду на афтерпати \uD83E\uDEA9") &&
+                afterPartyConfigurationService.registrationEnabled()) {
             if (student != null) {
                 if (student.getIsConfirmed() && student.getAfterPartyRegistration() == null) {
 
@@ -101,7 +104,7 @@ public class StartState extends State {
                         } else {
                             if (student.getAfterPartyRegistration().getPhotoId().isBlank()) {
                                 this.conversation.changeState(StateName.AFTER_PARTY_REGISTRATION_PHOTO_OF_PAID);
-                                return this.conversation.getState().receive(dto); 
+                                return this.conversation.getState().receive(dto);
                             }
                         }
 
@@ -109,43 +112,41 @@ public class StartState extends State {
 
                 }
             }
-
         }
 
 
 
         List<String> metaForMessage = new ArrayList<>();
-        metaForMessage.add("Зарегистрироваться на посвят\uD83D\uDE0E");
+        if (student == null || !student.getIsConfirmed()) {
+            metaForMessage.add("Зарегистрироваться на посвят \uD83D\uDE0B");
+        }
 
 
-        if (student != null) {
-            if (student.getIsConfirmed()) {
+        if (student != null && afterPartyConfigurationService.registrationEnabled()) {
+            if (student.getIsConfirmed() && student.getAfterPartyRegistration() == null) {
+                metaForMessage.add("Я иду на афтерпати \uD83E\uDEA9");
+            } else {
 
-                if (student.getAfterPartyRegistration() == null) {
-                    metaForMessage.add("Я иду на афтерпати\uD83D\uDE08");
-                }
-
-                else {
-
-                    if (student.getAfterPartyRegistration().getPhone() == null ||
+                if (student.getAfterPartyRegistration().getPhone() == null ||
                         student.getAfterPartyRegistration().getPhotoId() == null) {
-                        metaForMessage.add("Я иду на афтерпати\uD83D\uDE08");
-                    }
-
+                    metaForMessage.add("Я иду на афтерпати \uD83E\uDEA9");
                 }
-
             }
         }
 
         return TextResponseDTO.builder()
                 .chatId(dto.getChatId())
-                .message("Привет! \nЯ бот для посвящения в первокурсники факультета СУИР\uD83D\uDE03")
+                .message("Привет! \uD83D\uDC4B\nЯ бот для посвящения в первокурсники факультета СУИР \uD83D\uDE03")
                 .meta(metaForMessage)
                 .build();
     }
 
     @Override
     public TextResponseDTO receive(PhotoMessageDTO dto) {
-        return null;
+        return TextResponseDTO.builder()
+                .chatId(dto.getChatId())
+                .message("Привет! \uD83D\uDC4B\nЯ бот для посвящения в первокурсники факультета СУИР \uD83D\uDE03")
+                .meta(List.of("Зарегистрироваться на посвят \uD83D\uDE0B"))
+                .build();
     }
 }

@@ -1,6 +1,7 @@
 package org.itmo.bot.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.itmo.bot.exception.command.InvalidArgumentsException;
 import org.itmo.bot.model.AfterPartyRegistration;
 import org.itmo.bot.model.Student;
 import org.itmo.bot.repository.StudentRepository;
@@ -9,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -87,12 +87,6 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Long> getAllChatIds() {
-        return studentRepository.findAll().stream().filter(s -> s.getConversation() != null)
-                .map(s -> s.getConversation().getChatId()).collect(Collectors.toList());
-    }
-
-    @Override
     public void setAfterPartyRegistration(AfterPartyRegistration afterPartyRegistration, Long chatID) {
 
         Student student = studentRepository.findByConversationChatId(chatID).orElse(null);
@@ -104,11 +98,24 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public void setPresent(Long id) {
+        if (!studentRepository.existsById(id)) {
+            throw new InvalidArgumentsException("Запись с ID '%d' не найдена".formatted(id));
+        }
+        studentRepository.setPresent(id);
+    }
+
+    @Override
     public boolean deleteById(Long studentId) {
         if (!studentRepository.existsById(studentId)) {
             return false;
         }
         studentRepository.deleteById(studentId);
         return true;
+    }
+
+    @Override
+    public List<Long> getAllPresentChatIds() {
+        return studentRepository.findAllPresentChatIds();
     }
 }
