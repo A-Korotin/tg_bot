@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "after_party_registration")
-public class AfterPartyRegistration {
+public class AfterPartyRegistration implements CSVRepresentable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,5 +24,10 @@ public class AfterPartyRegistration {
 
     private String phone;
 
-    private Boolean paid;
+    private Boolean paid = false;
+
+    @Override
+    public String representAsCSVRecord() {
+        return "Да;%s;%s".formatted(phone, paid? "Да": "Нет");
+    }
 }

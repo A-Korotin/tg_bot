@@ -34,14 +34,14 @@ public class StateRegistrationGroup extends State {
                 this.conversation.changeState(StateName.REGISTRATION_CONFIRMATION);
                 return TextResponseDTO.builder()
                         .chatId(dto.getChatId())
-                        .message("Супер! А теперь нажми, что ты согласен, что мы возьмём твои персональные данные, но ты не беспокойся, нам только для посвята)))")
+                        .message("Супер! \nА теперь нажми, что ты согласен, что мы возьмём твои персональные данные, но ты не беспокойся, нам только для посвята)))")
                         .meta(List.of("Вернуться в начало", "СОГЛАСЕН"))
                         .build();
 
             } catch (IllegalArgumentException e) {
                 return TextResponseDTO.builder()
                         .chatId(dto.getChatId())
-                        .message("Странная у тебя группа! Попробуй ещё")
+                        .message("Что-то не то:( Попробуй ещё раз!")
                         .meta(List.of("Вернуться в начало"))
                         .build();
             }

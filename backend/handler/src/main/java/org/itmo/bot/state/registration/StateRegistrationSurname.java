@@ -34,14 +34,14 @@ public class StateRegistrationSurname extends State {
                 this.conversation.changeState(StateName.REGISTRATION_ISU);
                 return TextResponseDTO.builder()
                         .chatId(dto.getChatId())
-                        .message("Пойдёт! Введи свой номер ИСУ:")
+                        .message("Отлично! Введи свой номер ИСУ:")
                         .meta(List.of("Вернуться в начало"))
                         .build();
 
             } catch (IllegalArgumentException e) {
                 return TextResponseDTO.builder()
                         .chatId(dto.getChatId())
-                        .message("Странная у тебя фамилия! Попробуй ещё")
+                        .message("Что-то не то:( Попробуй ещё раз!")
                         .meta(List.of("Вернуться в начало"))
                         .build();
             }

@@ -23,7 +23,7 @@ public class FindAllRegisteredStudentsCommand extends Command {
 
         StringBuilder builder = new StringBuilder();
         builder.append('\ufeff'); // BOM for Excel UTF-8 encoding
-        builder.append("Имя;Фамилия;Группа;Номер ИСУ;Ник телеграмм\n");
+        builder.append("ID;Имя;Фамилия;Группа;Номер ИСУ;Ник телеграмм;Регистрация АП;Телефон;Оплата подтверждена;Присутствует\n");
         for (CSVRepresentable representable: students) {
             builder.append(representable.representAsCSVRecord()).append('\n');
         }

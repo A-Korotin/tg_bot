@@ -29,6 +29,8 @@ public class Student implements CSVRepresentable {
 
     private Boolean isConfirmed = false;
 
+    private Boolean isPresent = false;
+
     @OneToOne
     @JoinColumn(name="chat_id")
     private Conversation conversation;
@@ -38,7 +40,9 @@ public class Student implements CSVRepresentable {
 
     @Override
     public String representAsCSVRecord() {
-        // Имя,Фамилия,Группа,Номер ИСУ,Ник телеграмм
-        return "%s;%s;%s;%d;%s".formatted(name, surname, itmoGroup, ISU, tgNick);
+        // Id,Имя,Фамилия,Группа,Номер ИСУ,Ник телеграмм,Инфа по АП, Присутствует
+        return "%d;%s;%s;%s;%d;%s;%s;%s".formatted(id,name, surname, itmoGroup, ISU, tgNick,
+                afterPartyRegistration == null ? "Нет": afterPartyRegistration.representAsCSVRecord(),
+                isPresent ? "Да": "Нет");
     }
 }

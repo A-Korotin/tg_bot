@@ -1,13 +1,14 @@
 package org.itmo.bot.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.itmo.bot.exception.command.InvalidArgumentsException;
 import org.itmo.bot.model.AfterPartyRegistration;
 import org.itmo.bot.model.Student;
 import org.itmo.bot.repository.StudentRepository;
-import org.itmo.bot.service.AfterPartyRegistrationService;
 import org.itmo.bot.service.StudentService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -15,6 +16,9 @@ import java.util.Optional;
 public class StudentServiceImpl implements StudentService {
 
     private final StudentRepository studentRepository;
+
+    private final String GROUP_RE = "R31\\d\\d";
+    private final String NAME_RE = "^[а-яА-Яa-zA-Z]+$";
 
     @Override
     public boolean existsByChatId(Long chatId) {
@@ -28,7 +32,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void setName(String name, Long chatId) throws IllegalArgumentException {
-        if (name.length() > 25 || name.length() < 2) {
+        if (name.length() > 25 || name.length() < 2 || !name.trim().matches(NAME_RE)) {
             throw new IllegalArgumentException();
         }
 
@@ -37,7 +41,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void setSurname(String surname, Long chatId) throws IllegalArgumentException {
-        if (surname.length() > 25 || surname.length() < 2) {
+        if (surname.length() > 25 || surname.length() < 2 || !surname.trim().matches(NAME_RE)) {
             throw new IllegalArgumentException();
         }
 
@@ -55,7 +59,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void setGroup(String group, Long chatId) throws IllegalArgumentException {
-        if (!Character.isLetter(group.charAt(0)) || !Character.isDigit(group.charAt(1))) {
+        if (!group.trim().matches(GROUP_RE)) {
             throw new IllegalArgumentException();
         }
 
@@ -66,7 +70,6 @@ public class StudentServiceImpl implements StudentService {
     public void confirm(Long chatId) {
         studentRepository.confirm(chatId);
     }
-
 
 
     @Override
@@ -92,5 +95,27 @@ public class StudentServiceImpl implements StudentService {
             studentRepository.setAfterPartyRegistrationByStudentId(afterPartyRegistration.getId(), student.getId());
         }
 
+    }
+
+    @Override
+    public void setPresent(Long id) {
+        if (!studentRepository.existsById(id)) {
+            throw new InvalidArgumentsException("Запись с ID '%d' не найдена".formatted(id));
+        }
+        studentRepository.setPresent(id);
+    }
+
+    @Override
+    public boolean deleteById(Long studentId) {
+        if (!studentRepository.existsById(studentId)) {
+            return false;
+        }
+        studentRepository.deleteById(studentId);
+        return true;
+    }
+
+    @Override
+    public List<Long> getAllPresentChatIds() {
+        return studentRepository.findAllPresentChatIds();
     }
 }

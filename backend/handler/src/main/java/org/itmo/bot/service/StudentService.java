@@ -4,6 +4,8 @@ package org.itmo.bot.service;
 import org.itmo.bot.model.AfterPartyRegistration;
 import org.itmo.bot.model.Student;
 
+import java.util.List;
+
 public interface StudentService {
 
     boolean existsByChatId(Long chatId);
@@ -20,9 +22,16 @@ public interface StudentService {
 
     void confirm(Long chatId);
 
+    void setPresent(Long id);
+
     void setAfterPartyRegistration(AfterPartyRegistration afterPartyRegistration, Long chatId);
 
     Iterable<Student> findAllRegistered();
 
     Student getStudentByChatId(Long chatId);
+
+    boolean deleteById(Long studentId);
+
+    List<Long> getAllPresentChatIds();
+
 }
