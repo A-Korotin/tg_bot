@@ -117,7 +117,9 @@ public class StartState extends State {
 
 
         List<String> metaForMessage = new ArrayList<>();
-        metaForMessage.add("Зарегистрироваться на посвят \uD83D\uDE0B");
+        if (student == null || !student.getIsConfirmed()) {
+            metaForMessage.add("Зарегистрироваться на посвят \uD83D\uDE0B");
+        }
 
 
         if (student != null && afterPartyConfigurationService.registrationEnabled()) {
