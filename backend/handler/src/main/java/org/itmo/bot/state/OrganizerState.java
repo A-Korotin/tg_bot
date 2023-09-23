@@ -28,7 +28,8 @@ public class OrganizerState extends State {
             "Удалить",
             "РазделитьНаКоманды",
             "ОткрытьАП",
-            "Отметить"
+            "Отметить",
+            "Оплата"
     };
 
     @Override

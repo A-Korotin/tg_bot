@@ -25,6 +25,7 @@ public class AdminCommandServiceImpl implements CommandService {
         map.put("РазделитьНаКоманды", SplitTeamsCommand.class);
         map.put("ОткрытьАП", EnableAfterPartyRegistrationCommand.class);
         map.put("Отметить", SetPresentCommand.class);
+        map.put("Оплата", SetPaidCommand.class);
     }
 
     @Override
