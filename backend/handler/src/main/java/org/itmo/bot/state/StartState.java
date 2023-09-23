@@ -56,8 +56,60 @@ public class StartState extends State {
             if (student != null) {
                 if (student.getIsConfirmed() && student.getAfterPartyRegistration() == null) {
 
-                    this.conversation.changeState(StateName.AFTER_PARTY_REGISTRATION_QUESTION);
-                    return this.conversation.getState().receive(dto);
+                    this.conversation.changeState(StateName.AFTER_PARTY_REGISTRATION_PHONE);
+                    return TextResponseDTO.builder()
+                            .chatId(dto.getChatId())
+                            .message("Введи свой номер телефона\n\nПримеры:\n+77777777777\n87777777777\n77777777777")
+                            .meta(List.of("Вернуться в начало"))
+                            .build();
+                }
+            }
+
+            if (student != null) {
+                if (student.getIsConfirmed()) {
+
+                    if (student.getAfterPartyRegistration() == null) {
+                        this.conversation.changeState(StateName.AFTER_PARTY_REGISTRATION_PHONE);
+                        return TextResponseDTO.builder()
+                                .chatId(dto.getChatId())
+                                .message("Введи свой номер телефона\n\nПримеры:\n+77777777777\n87777777777\n77777777777")
+                                .meta(List.of("Вернуться в начало"))
+                                .build();
+                    }
+
+                    else {
+
+                        if (student.getAfterPartyRegistration().getPhone() == null) {
+                            this.conversation.changeState(StateName.AFTER_PARTY_REGISTRATION_PHONE);
+                            return TextResponseDTO.builder()
+                                    .chatId(dto.getChatId())
+                                    .message("Введи свой номер телефона\n\nПримеры:\n+77777777777\n87777777777\n77777777777")
+                                    .meta(List.of("Вернуться в начало"))
+                                    .build();
+                        }
+                        else {
+                            if (student.getAfterPartyRegistration().getPhone().isBlank()) {
+                                this.conversation.changeState(StateName.AFTER_PARTY_REGISTRATION_PHONE);
+                                return TextResponseDTO.builder()
+                                        .chatId(dto.getChatId())
+                                        .message("Введи свой номер телефона\n\nПримеры:\n+77777777777\n87777777777\n77777777777")
+                                        .meta(List.of("Вернуться в начало"))
+                                        .build();
+                            }
+                        }
+
+                        if (student.getAfterPartyRegistration().getPhotoId() == null) {
+                            this.conversation.changeState(StateName.AFTER_PARTY_REGISTRATION_PHOTO_OF_PAID);
+                            return this.conversation.getState().receive(dto);
+                        } else {
+                            if (student.getAfterPartyRegistration().getPhotoId().isBlank()) {
+                                this.conversation.changeState(StateName.AFTER_PARTY_REGISTRATION_PHOTO_OF_PAID);
+                                return this.conversation.getState().receive(dto);
+                            }
+                        }
+
+                    }
+
                 }
             }
         }
@@ -71,6 +123,12 @@ public class StartState extends State {
         if (student != null && afterPartyConfigurationService.registrationEnabled()) {
             if (student.getIsConfirmed() && student.getAfterPartyRegistration() == null) {
                 metaForMessage.add("Я иду на афтерпати \uD83E\uDEA9");
+            } else {
+
+                if (student.getAfterPartyRegistration().getPhone() == null ||
+                        student.getAfterPartyRegistration().getPhotoId() == null) {
+                    metaForMessage.add("Я иду на афтерпати \uD83E\uDEA9");
+                }
             }
         }
 
