@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'org.itmo'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1'
 
 java {
 	sourceCompatibility = '17'
@@ -28,7 +28,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-json'
 
 	implementation project(':common')
-	compileOnly 'org.projectlombok:lombok'
+    implementation project(path: ':common')
+    compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'org.postgresql:postgresql'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
