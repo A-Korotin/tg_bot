@@ -42,7 +42,7 @@ public class StateRegistrationName extends State {
             } catch (IllegalArgumentException e) {
                 return TextResponseDTO.builder()
                         .chatId(dto.getChatId())
-                        .message("Что-то не то:( Попробуй ещё раз!")
+                        .message("Что-то не то:( Попробуй ещё раз!\nP.S. Если у вас в имени есть пробел - пишите через дефис (слитно) \uD83D\uDE0B")
                         .meta(List.of("Вернуться в начало"))
                         .build();
             }

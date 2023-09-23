@@ -18,7 +18,7 @@ public class StudentServiceImpl implements StudentService {
     private final StudentRepository studentRepository;
 
     private final String GROUP_RE = "R31\\d\\d";
-    private final String NAME_RE = "^[а-яА-Яa-zA-Z]+$";
+    private final String NAME_RE = "^[а-яА-Яa-zA-Z-]+$";
 
     @Override
     public boolean existsByChatId(Long chatId) {
