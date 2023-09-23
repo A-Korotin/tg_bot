@@ -41,7 +41,7 @@ public class StateRegistrationGroup extends State {
             } catch (IllegalArgumentException e) {
                 return TextResponseDTO.builder()
                         .chatId(dto.getChatId())
-                        .message("Странная у тебя группа! Попробуй ещё")
+                        .message("Что-то не то:( Попробуй ещё раз!")
                         .meta(List.of("Вернуться в начало"))
                         .build();
             }

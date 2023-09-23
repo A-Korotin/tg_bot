@@ -29,7 +29,7 @@ public class StartState extends State {
 
         Student student = studentService.getStudentByChatId(dto.getChatId());
 
-        if (dto.getMessage().equals("Зарегистрироваться на посвят\uD83D\uDE0E")) {
+        if (dto.getMessage().equals("Зарегистрироваться на посвят \uD83D\uDE0B")) {
 
             if (student == null || !student.getIsConfirmed()) {
                 this.conversation.changeState(StateName.REGISTRATION_NAME);
@@ -51,7 +51,7 @@ public class StartState extends State {
         }
 
 
-        if (dto.getMessage().equals("Я иду на афтерпати\uD83D\uDE08") &&
+        if (dto.getMessage().equals("Я иду на афтерпати \uD83E\uDEA9") &&
                 afterPartyConfigurationService.registrationEnabled()) {
             if (student != null) {
                 if (student.getIsConfirmed() && student.getAfterPartyRegistration() == null) {
@@ -65,18 +65,18 @@ public class StartState extends State {
 
 
         List<String> metaForMessage = new ArrayList<>();
-        metaForMessage.add("Зарегистрироваться на посвят\uD83D\uDE0E");
+        metaForMessage.add("Зарегистрироваться на посвят \uD83D\uDE0B");
 
 
         if (student != null && afterPartyConfigurationService.registrationEnabled()) {
             if (student.getIsConfirmed() && student.getAfterPartyRegistration() == null) {
-                metaForMessage.add("Я иду на афтерпати\uD83D\uDE08");
+                metaForMessage.add("Я иду на афтерпати \uD83E\uDEA9");
             }
         }
 
         return TextResponseDTO.builder()
                 .chatId(dto.getChatId())
-                .message("Привет! \nЯ бот для посвящения в первокурсники факультета СУИР\uD83D\uDE03")
+                .message("Привет! \uD83D\uDC4B\nЯ бот для посвящения в первокурсники факультета СУИР \uD83D\uDE03")
                 .meta(metaForMessage)
                 .build();
     }
@@ -85,8 +85,8 @@ public class StartState extends State {
     public TextResponseDTO receive(PhotoMessageDTO dto) {
         return TextResponseDTO.builder()
                 .chatId(dto.getChatId())
-                .message("Привет! \nЯ бот для посвящения в первокурсники факультета СУИР\uD83D\uDE03")
-                .meta(List.of("Зарегистрироваться на посвят\uD83D\uDE0E"))
+                .message("Привет! \uD83D\uDC4B\nЯ бот для посвящения в первокурсники факультета СУИР \uD83D\uDE03")
+                .meta(List.of("Зарегистрироваться на посвят \uD83D\uDE0B"))
                 .build();
     }
 }

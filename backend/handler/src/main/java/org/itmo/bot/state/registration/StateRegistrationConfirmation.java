@@ -41,7 +41,7 @@ public class StateRegistrationConfirmation extends State {
 
             return TextResponseDTO.builder()
                     .chatId(dto.getChatId())
-                    .message("Умничка! Можешь кайфовать! Ты зареган!")
+                    .message("Молодец! Ты зарегистрирован/а! Кайфуй \uD83D\uDE0E")
                     .meta(List.of("Вернуться в начало"))
                     .build();
         }

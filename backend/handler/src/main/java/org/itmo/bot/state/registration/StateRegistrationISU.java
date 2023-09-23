@@ -34,14 +34,14 @@ public class StateRegistrationISU extends State {
                 this.conversation.changeState(StateName.REGISTRATION_GROUP);
                 return TextResponseDTO.builder()
                         .chatId(dto.getChatId())
-                        .message("Пойдёт! Введи свой номер группы:")
+                        .message("Кайф! Введи свой номер группы:")
                         .meta(List.of("Вернуться в начало"))
                         .build();
 
             } catch (IllegalArgumentException | ClassCastException e) {
                 return TextResponseDTO.builder()
                         .chatId(dto.getChatId())
-                        .message("Странное у тебя ИСУ! Попробуй ещё")
+                        .message("Что-то не то:( Попробуй ещё раз!")
                         .meta(List.of("Вернуться в начало"))
                         .build();
             }
