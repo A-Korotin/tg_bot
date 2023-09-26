@@ -1,1 +1,5 @@
-rootProject.name = 'bot'
+rootProject.name = 'backend'
+
+include 'dispatcher'
+include 'handler'
+include 'common'

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd">
+    <changeSet id="1" author="Alexey Korotin">
+        <sql dbms="postgresql"
+             endDelimiter=";"
+             splitStatements="true"
+             stripComments="true">
+
+        CREATE TABLE conversation (
+            chat_id BIGINT PRIMARY KEY,
+            state_name TEXT NOT NULL
+        );
+
+        CREATE TABLE after_party_registration (
+            id BIGSERIAL PRIMARY KEY,
+            paid BOOLEAN NOT NULL DEFAULT FALSE,
+            phone TEXT NOT NULL,
+            photo_id TEXT
+        );
+
+        CREATE TABLE student (
+          id BIGSERIAL PRIMARY KEY,
+          isu INTEGER,
+          is_confirmed BOOLEAN NOT NULL DEFAULT FALSE,
+          itmo_group TEXT,
+          name TEXT,
+          surname TEXT,
+          tg_nick TEXT,
+          after_party_registration_id BIGINT REFERENCES after_party_registration(id),
+          chat_id BIGINT REFERENCES conversation(chat_id)
+        );
+
+        </sql>
+    </changeSet>
+</databaseChangeLog>
