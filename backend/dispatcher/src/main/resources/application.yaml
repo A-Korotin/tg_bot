@@ -15,7 +15,7 @@ spring:
 
 telegram:
   bot:
-    token: 6190207669:AAGH4fpAanUPKJ-pMwFyPzzL7RfDylSwqW8
-    username: suir_registration_bot
+    token: <TOKEN>
+    username: <USERNAME>
 server:
   port: 8082
